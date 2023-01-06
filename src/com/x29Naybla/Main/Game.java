@@ -22,7 +22,7 @@ import static javax.swing.JFrame.*;
 public class Game extends Canvas implements Runnable, KeyListener{
 
     public static JFrame frame;
-    String frameName = "Serene bond";
+    String frameName = "Serene Bond";
     public static final int Width = 240, Height = 160, Scale = 3;
 
     private boolean isRunning = false, debug = false;
@@ -101,9 +101,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
                     //player updates
                     if(player.getX() < 0){
                         player.setX(World.ActW);
+                        player.coord_x = World.ActW - (3*16);
                     }
                     if(player.getX() > World.ActW){
                         player.setX(0);
+                        player.coord_x = (-3*16);
                     }
 
                 }

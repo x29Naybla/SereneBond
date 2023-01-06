@@ -18,46 +18,46 @@ public class Language {
         if(currLang == 0){
             //English selected
             day = "Day: ";
-            dead = "You died";
+            dead = "You Died";
             paused = "Paused";
-            options[0] = "New world";
-            options[1] = "Load world";
-            options[2] = "Change language";
+            options[0] = "New World";
+            options[1] = "Load World";
+            options[2] = "Change Language";
             options[3] = "Exit";
 
         }
         if(currLang == 1){
             //Portuguese selected
             day = "Dia: ";
-            dead = "Você morreu";
+            dead = "Você Morreu";
             paused = "Pausado";
-            options[0] = "Novo mundo";
-            options[1] = "Carregar mundo";
-            options[2] = "Mudar idioma";
+            options[0] = "Novo Mundo";
+            options[1] = "Carregar Mundo";
+            options[2] = "Mudar Idioma";
             options[3] = "Sair";
 
         }
         if(currLang == 2){
             //French selected
             day = "Jour: ";
-            dead = "Tu es mort";
-            paused = "En pause";
+            dead = "Tu es Mort";
+            paused = "En Pause";
 
-            options[0] = "Nouveau monde";
-            options[1] = "Charger monde";
-            options[2] = "Changer la langue";
+            options[0] = "Nouveau Monde";
+            options[1] = "Charger Monde";
+            options[2] = "Changer la Langue";
             options[3] = "Quitter";
 
         }
         if(currLang == 3){
-            //German
+            //German selected
             day = "Tag: ";
-            dead = "Du bist gestorben";
+            dead = "Du Bist Gestorben";
             paused = "Pausiert";
 
             options[0] = "Neue Welt";
-            options[1] = "Welt laden";
-            options[2] = "Sprache ändern";
+            options[1] = "Welt Laden";
+            options[2] = "Sprache Ändern";
             options[3] = "Verlassen";
 
         }

@@ -31,7 +31,7 @@ public class Menu {
 
         g.setFont(new Font("Arial", Font.BOLD, 60));
         g.setColor(Color.WHITE);
-        g.drawString("Serene bond", (Game.Width*Game.Scale) /2 - 180, (Game.Height*Game.Scale) /2 - 150);
+        g.drawString("Serene Bond", (Game.Width*Game.Scale) /2 - 180, (Game.Height*Game.Scale) /2 - 150);
 
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
