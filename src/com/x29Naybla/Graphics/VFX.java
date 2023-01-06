@@ -4,6 +4,7 @@ import com.x29Naybla.Main.Game;
 
 import java.awt.*;
 
+import static com.x29Naybla.Main.Game.gameState;
 import static com.x29Naybla.Main.Game.rand;
 
 public class VFX {
@@ -43,37 +44,39 @@ public class VFX {
     }
 
     public void run(){
-        dayTimer++;
+        if(gameState == "playing"){
+            dayTimer++;
 
-        if(dayTimer >= 30){
-            VFX.time++;
-            dayTimer = 0;
-            if(VFX.time > VFX.dayParts){
-                VFX.time= 0;
-                if(rand.nextInt(100) < 75){
-                    VFX.weather = 0;
-                }else if(rand.nextInt(100) < 50){
-                    VFX.weather = 1;
-                }else
-                    VFX.weather = 2;
+            if(dayTimer >= 30){
+                VFX.time++;
+                dayTimer = 0;
+                if(VFX.time > VFX.dayParts){
+                    VFX.time= 0;
+                    if(rand.nextInt(100) < 75){
+                        VFX.weather = 0;
+                    }else if(rand.nextInt(100) < 50){
+                        VFX.weather = 1;
+                    }else
+                        VFX.weather = 2;
 
-                VFX.days++;
+                    VFX.days++;
+                }
             }
-        }
 
-        if(time == 1){
-            if(nightA < 191){
-                nightA = nightA + 20;
-                if(nightA > 73)
-                    nightA = 191;
+            if(time == 1){
+                if(nightA < 191){
+                    nightA = nightA + 20;
+                    if(nightA > 191)
+                        nightA = 191;
+                }
             }
-        }
 
-        if(time == 0){
-            if(nightA > 0){
-                nightA = nightA - 20;
-                if(nightA < 0)
-                    nightA = 0;
+            if(time == 0){
+                if(nightA > 0){
+                    nightA = nightA - 20;
+                    if(nightA < 0)
+                        nightA = 0;
+                }
             }
         }
     }

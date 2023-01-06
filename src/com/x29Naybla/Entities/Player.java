@@ -7,6 +7,7 @@ import com.x29Naybla.World.World;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static com.x29Naybla.Main.Game.gameState;
 import static com.x29Naybla.Main.Game.world;
 import static com.x29Naybla.World.World.isFree;
 
@@ -90,6 +91,11 @@ public class Player extends Entity {
             }
         }
 
+        if(life <= 0){
+            gameState = "dead";
+            life = 0;
+        }
+
         Camera.x = Camera.clamp(this.getX() - (Game.Width/2), 0, World.Width*16 - Game.Width);
         Camera.y = Camera.clamp(this.getY() - (Game.Height/2), 0, World.Height*16 - Game.Height);
     }
@@ -122,9 +128,6 @@ public class Player extends Entity {
 
         if(energy <= 0){
             life--;
-        }
-        if(life <= 0){
-            System.exit(0);
         }
     }
 }
