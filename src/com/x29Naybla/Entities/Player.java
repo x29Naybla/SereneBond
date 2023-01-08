@@ -24,8 +24,9 @@ public class Player extends Entity {
 
     public int coord_x = 0, coord_y = 0;
 
-    private int frames = 0, index = 0;
-    private final int maxFrames = 12, maxIndex = 3;
+    public int frames = 0, index = 0;
+    public int maxFrames = 10;
+    private final int maxIndex = 3;
     public static boolean moved = false;
     private BufferedImage[] upPlayer;
     private BufferedImage[] downPlayer;
@@ -79,7 +80,6 @@ public class Player extends Entity {
             dir = right_dir;
             coord_x = coord_x + speed;
         }
-
         if(moved){
             frames++;
             if(frames == maxFrames){
@@ -89,6 +89,9 @@ public class Player extends Entity {
                     index = 0;
                 }
             }
+        }else if(!moved){
+            frames = 0;
+            index = 0;
         }
 
         if(life <= 0){

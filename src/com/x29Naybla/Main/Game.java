@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -41,13 +40,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
     public static Pause pause;
     public static String gameState = "menu";
 
-    public List<Entity> entities;
+    public static List<Entity> entities;
     public static Player player;
     public UI ui;
     public VFX vfx;
 
+    public boolean saveGame = false;
+
     public Game(){
-        spritesheet = new Spritesheet("/default.png");
         rand = new Random();
         language = new Language();
         menu = new Menu();
@@ -67,10 +67,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
         ui = new UI();
         vfx = new VFX();
         image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
-        entities = new ArrayList<Entity>();
-        player = new Player(0, 0, 16, 16,spritesheet.getSprite(0,48,16,16));
-        entities.add(player);
-        world = new World("/world2.png");
     }
 
     public synchronized void start() {
@@ -80,13 +76,13 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
 
     public synchronized void stop(){
+        isRunning = false;
         thread.interrupt();
         try {
             thread.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        isRunning = false;
     }
     public static void main(String[] args) {
         Game game = new Game();
@@ -94,14 +90,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
         game.addKeyListener(game);
     }
     public void tick() {
-        if(gameState == "playing"){
+        if(gameState.equals("playing")){
             for(int i = 0; i < entities.size(); i++){
                 Entity e = entities.get(i);
                 if(e instanceof Player){
                     //player updates
                     if(player.getX() < 0){
                         player.setX(World.ActW);
-                        player.coord_x = World.ActW - (3*16);
+                        player.coord_x = World.ActW - (5*16);
                     }
                     if(player.getX() > World.ActW){
                         player.setX(0);
@@ -111,13 +107,18 @@ public class Game extends Canvas implements Runnable, KeyListener{
                 }
                 e.tick();
             }
-        }else if(gameState == "dead"){
+        }else if(gameState.equals("dead")){
 
-        }else if(gameState == "menu"){
+        }else if(gameState.equals("paused")){
+            pause.tick();
+        }else if(gameState.equals("menu")){
             menu.tick();
             language.tick();
         }
+
+
     }
+
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -150,18 +151,16 @@ public class Game extends Canvas implements Runnable, KeyListener{
         g = bs.getDrawGraphics();
         g.drawImage(image,0,0,Width*Scale,Height*Scale, null);
 
-        if(gameState == "dead"){
+        if(gameState.equals("dead")){
             g.setColor(new Color(0,0,0, 128));
             g.fillRect(0,0,Width*Scale,Height*Scale);
 
             g.setFont(new Font("Arial", Font.BOLD, 60));
             g.setColor(Color.WHITE);
             g.drawString(Language.dead, (Width*Scale) /2 - 125, (Height*Scale) /2);
-        }
-        if(gameState == "paused"){
+        }else if(gameState.equals("paused")){
             pause.render(g);
-        }
-        if(gameState == "menu"){
+        }else if(gameState.equals("menu")){
             menu.render(g);
         }
         bs.show();
@@ -223,16 +222,23 @@ public class Game extends Canvas implements Runnable, KeyListener{
             }
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_ENTER && gameState.equals("menu")){
-            if(Language.options[menu.currOption] == Language.options[0]){
-                gameState = "playing";
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(gameState.equals("menu")){
+                if(Language.options[menu.currOption] == Language.options[0]){
+                    gameState = "playing";
+                }else if(Language.options[menu.currOption] == Language.options[1]){
+                }else if(Language.options[menu.currOption] == Language.options[2]){
+                    language.changeLang();
+                }else if(Language.options[menu.currOption] == Language.options[3]){
+                    System.exit(0);
+                }
             }
-            if(Language.options[menu.currOption] == Language.options[2]){
-                language.up = true;
-                language.changeLang();
-            }
-            if(Language.options[menu.currOption] == Language.options[3]){
-                System.exit(0);
+            if(gameState.equals("paused")){
+                if(Language.pause[pause.currOption].equals(Language.pause[0])){
+                    gameState = "menu";
+                }else if(Language.pause[pause.currOption].equals(Language.pause[1])){
+                    this.saveGame = true;
+                }
             }
 
         }
@@ -244,13 +250,19 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP){
             player.up = true;
-            if(gameState == "menu"){
+            if(gameState.equals("menu")){
                 menu.up = true;
+            }
+            if(gameState.equals("paused")){
+                pause.up = true;
             }
         }else if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN){
             player.down = true;
-            if(gameState == "menu"){
+            if(gameState.equals("menu")){
                 menu.down = true;
+            }
+            if(gameState.equals("paused")){
+                pause.down = true;
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT){

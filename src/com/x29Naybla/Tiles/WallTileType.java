@@ -5,7 +5,7 @@ public class WallTileType extends SimpleTileType{
         super(u, v);
     }
 
-    boolean hasCollision(){
+    public boolean hasCollision(){
         return true;
     }
 }

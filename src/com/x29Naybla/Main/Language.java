@@ -10,8 +10,7 @@ public class Language {
     public int maxLang = 3;
 
     public static String[] options = {"0", "1", "2", "3"};
-
-    public static boolean up;
+    public static String[] pause = {"0", "1"};
 
     public void tick(){
 
@@ -20,10 +19,14 @@ public class Language {
             day = "Day: ";
             dead = "You Died";
             paused = "Paused";
+
             options[0] = "New World";
             options[1] = "Load World";
             options[2] = "Change Language";
             options[3] = "Exit";
+
+            pause[0] = "Main Menu";
+            pause[1] = "Save Progress";
 
         }
         if(currLang == 1){
@@ -31,10 +34,14 @@ public class Language {
             day = "Dia: ";
             dead = "Você Morreu";
             paused = "Pausado";
+
             options[0] = "Novo Mundo";
             options[1] = "Carregar Mundo";
             options[2] = "Mudar Idioma";
             options[3] = "Sair";
+
+            pause[0] = "Menu Principal";
+            pause[1] = "Salvar Progresso";
 
         }
         if(currLang == 2){
@@ -48,6 +55,9 @@ public class Language {
             options[2] = "Changer la Langue";
             options[3] = "Quitter";
 
+            pause[0] = "Main menu";
+            pause[1] = "Save Progress";
+
         }
         if(currLang == 3){
             //German selected
@@ -60,18 +70,17 @@ public class Language {
             options[2] = "Sprache Ändern";
             options[3] = "Verlassen";
 
+            pause[0] = "Main Menu";
+            pause[1] = "Save Progress";
         }
     }
 
     public void changeLang(){
-        if(up){
             currLang = currLang +1;
             System.out.println(currLang);
-            up = false;
             if(currLang > maxLang){
                 currLang = 0;
             }
-        }
     }
 
 }

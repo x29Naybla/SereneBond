@@ -1,5 +1,8 @@
 package com.x29Naybla.World;
 
+import com.x29Naybla.Entities.Entity;
+import com.x29Naybla.Entities.Player;
+import com.x29Naybla.Graphics.Spritesheet;
 import com.x29Naybla.Main.Game;
 import com.x29Naybla.Tiles.WallTileType;
 
@@ -7,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class World {
 
@@ -60,10 +64,10 @@ public class World {
         int x4 = (xnext+15) / 16;
         int y4 = (ynext+15) / 16;
 
-        return !(tiles[x1][y1].type instanceof WallTileType ||
-                tiles[x2][y2].type instanceof WallTileType ||
-                tiles[x3][y3].type instanceof WallTileType ||
-                tiles[x4][y4].type instanceof WallTileType);
+        return !(tiles[x1][y1].type.hasCollision() == true ||
+                tiles[x2][y2].type.hasCollision() == true ||
+                tiles[x3][y3].type.hasCollision() == true ||
+                tiles[x4][y4].type.hasCollision() == true);
     }
 
     public void render(Graphics g){

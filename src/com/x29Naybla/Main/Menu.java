@@ -1,6 +1,7 @@
 package com.x29Naybla.Main;
 
 import java.awt.*;
+import java.io.*;
 
 public class Menu {
 
@@ -8,6 +9,9 @@ public class Menu {
     public int maxOption = Language.options.length - 1;
 
     public boolean up,down;
+
+    public static boolean saveExists = false, saveGame = false;
+
     public void tick(){
         if(up){
             up = false;
