@@ -19,8 +19,8 @@ public class Player extends Entity {
     public int speed = 1;
     public boolean isRunning = false;
 
-    public static double life = 20, maxLife = 20;
-    public static double energy = 20, maxEnergy = 20;
+    public  double life = 20, maxLife = 20;
+    public  double energy = 20, maxEnergy = 20;
 
     public int coord_x = 0, coord_y = 0;
 

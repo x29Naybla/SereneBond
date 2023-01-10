@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Pause {
 
-    public int currOption = 1;
+    public int currOption = 0;
     public int maxOption = Language.pause.length - 1;
 
     public boolean up,down;

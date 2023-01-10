@@ -13,13 +13,13 @@ public class UI {
         g.fillRect(5,(Game.Height - 15),50, 10);
 
         g.setColor(Color.red);
-        g.fillRect(5,(Game.Height - 15),(int)((Player.life / Player.maxLife) * 50), 10);
+        g.fillRect(5,(Game.Height - 15),(int)((Game.player.life / Game.player.maxLife) * 50), 10);
 
         //Energy
         g.setColor(Color.black);
         g.fillRect(5,(Game.Height - 27),50, 10);
 
         g.setColor(Color.yellow);
-        g.fillRect(5,(Game.Height - 27),(int)((Player.energy/ Player.maxEnergy) * 50), 10);
+        g.fillRect(5,(Game.Height - 27),(int)((Game.player.energy/ Game.player.maxEnergy) * 50), 10);
     }
 }

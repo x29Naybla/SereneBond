@@ -68,6 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
         ui = new UI();
         vfx = new VFX();
         image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
+        spritesheet = new Spritesheet("/default.png");
         newGame();
     }
 
@@ -122,12 +123,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
 
     public void newGame(){
-        this.entities = new ArrayList();
-        spritesheet = new Spritesheet("/default.png");
+        entities = new ArrayList<Entity>();
         player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
-        this.entities.add(player);
+        entities.add(player);
         world = new World("/world.png");
-
+        return;
     }
 
     public void render() {
@@ -168,7 +168,10 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
             g.setFont(new Font("Arial", Font.BOLD, 60));
             g.setColor(Color.WHITE);
-            g.drawString(Language.dead, (Width*Scale) /2 - 125, (Height*Scale) /2);
+            g.drawString(Language.dead, (Width*Scale) /2 - 130, (Height*Scale) /2);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.setColor(Color.WHITE);
+            g.drawString(Language.respawn, (Width*Scale) /2 - 110, (Height*Scale) /2 + 50);
         }else if(gameState.equals("paused")){
             pause.render(g);
         }else if(gameState.equals("menu")){
@@ -237,12 +240,17 @@ public class Game extends Canvas implements Runnable, KeyListener{
             if(gameState.equals("menu")){
                 if(Language.options[menu.currOption] == Language.options[0]){
                     gameState = "playing";
+                    newGame();
                 }else if(Language.options[menu.currOption] == Language.options[1]){
                 }else if(Language.options[menu.currOption] == Language.options[2]){
                     language.changeLang();
                 }else if(Language.options[menu.currOption] == Language.options[3]){
                     System.exit(0);
                 }
+            }
+            if(gameState.equals("dead")){
+                gameState = "playing";
+                newGame();
             }
             if(gameState.equals("paused")){
                 if(Language.pause[pause.currOption].equals(Language.pause[0])){

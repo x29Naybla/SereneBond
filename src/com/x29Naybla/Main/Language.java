@@ -4,6 +4,7 @@ public class Language {
 
     public static String day;
     public static String dead;
+    public static String respawn;
     public static String paused;
 
     public int currLang = 0;
@@ -18,6 +19,7 @@ public class Language {
             //English selected
             day = "Day: ";
             dead = "You Died";
+            respawn = "Press Enter to Respawn";
             paused = "Paused";
 
             options[0] = "New World";
@@ -27,16 +29,16 @@ public class Language {
 
             pause[0] = "Main Menu";
             pause[1] = "Save Progress";
-
         }
         if(currLang == 1){
             //Portuguese selected
             day = "Dia: ";
             dead = "Você Morreu";
+            respawn = "Aperte Enter Para Respawnar";
             paused = "Pausado";
 
             options[0] = "Novo Mundo";
-            options[1] = "Carregar Mundo";
+            options[1] = "Carregar";
             options[2] = "Mudar Idioma";
             options[3] = "Sair";
 
@@ -48,10 +50,11 @@ public class Language {
             //French selected
             day = "Jour: ";
             dead = "Tu es Mort";
+            respawn = "Press Enter to Respawn";
             paused = "En Pause";
 
             options[0] = "Nouveau Monde";
-            options[1] = "Charger Monde";
+            options[1] = "Charger";
             options[2] = "Changer la Langue";
             options[3] = "Quitter";
 
@@ -63,10 +66,11 @@ public class Language {
             //German selected
             day = "Tag: ";
             dead = "Du Bist Gestorben";
+            respawn = "Press Enter to Respawn";
             paused = "Pausiert";
 
             options[0] = "Neue Welt";
-            options[1] = "Welt Laden";
+            options[1] = "Laden";
             options[2] = "Sprache Ändern";
             options[3] = "Verlassen";
 
