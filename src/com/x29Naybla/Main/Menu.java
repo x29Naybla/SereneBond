@@ -10,8 +10,6 @@ public class Menu {
 
     public boolean up,down;
 
-    public static boolean saveExists = false, saveGame = false;
-
     public void tick(){
         if(up){
             up = false;

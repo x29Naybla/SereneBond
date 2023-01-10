@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -67,6 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
         ui = new UI();
         vfx = new VFX();
         image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
+        newGame();
     }
 
     public synchronized void start() {
@@ -116,6 +118,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
             language.tick();
         }
 
+
+    }
+
+    public void newGame(){
+        this.entities = new ArrayList();
+        spritesheet = new Spritesheet("/default.png");
+        player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
+        this.entities.add(player);
+        world = new World("/world.png");
 
     }
 

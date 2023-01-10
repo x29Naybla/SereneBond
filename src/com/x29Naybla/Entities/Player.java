@@ -42,17 +42,17 @@ public class Player extends Entity {
         rightPlayer = new BufferedImage[4];
 
         for(int i = 0; i < 4; i++){
-            upPlayer[i] = Game.spritesheet.getSprite((i * 16), 48, 16, 16);
+            upPlayer[i] = Game.spritesheet.getSprite(112 +(i * 16), 144, 16, 16);
         }
         for(int i = 0; i < 4; i++){
-            downPlayer[i] = Game.spritesheet.getSprite((i*16), 64, 16, 16);
+            downPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 160, 16, 16);
         }
         for(int i = 0; i < 4; i++){
-            leftPlayer[i] = Game.spritesheet.getSprite((i*16), 80, 16, 16);
+            leftPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 176, 16, 16);
 ;
         }
         for(int i = 0; i < 4; i++){
-            rightPlayer[i] = Game.spritesheet.getSprite((i*16), 96, 16, 16);
+            rightPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 192, 16, 16);
         }
     }
 
