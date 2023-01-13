@@ -85,6 +85,21 @@ public class Menu {
                 break;
                 case "days":
                     Game.vfx.days = Integer.parseInt(spl2[1]);
+                break;
+                case "selected":
+                     Game.inventory.selected = Integer.parseInt(spl2[1]);
+                break;
+                case "weather":
+                    Game.vfx.weather = Integer.parseInt(spl2[1]);
+                case "dayTimer":
+                    Game.vfx.dayTimer = Double.parseDouble(spl2[1]);
+                break;
+                case "time":
+                    Game.vfx.time = Integer.parseInt(spl2[1]);
+                break;
+                case "timeTrans":
+                    Game.vfx.timeTrans = Integer.parseInt(spl2[1]);
+                break;
             }
         }
     }

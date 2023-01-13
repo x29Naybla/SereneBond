@@ -12,19 +12,19 @@ public class VFX {
     public static int time = 0, dayParts = 1;
     public static int days = 0;
     public static int weather = 0;
-    public static int nightA = 0;
+    public static int timeTrans = 0;
     public static double dayTimer = 0;
 
 
     public void render(Graphics g){
         if(time == 0){
             //day
-            g.setColor(new Color(0,0, 25, nightA));
+            g.setColor(new Color(0,0, 25, timeTrans));
             g.fillRect(0, 0,Game.Width, Game.Height);
 
         }else if(time == 1){
             //night
-            g.setColor(new Color(0,0, 25, nightA));
+            g.setColor(new Color(0,0, 25, timeTrans));
             g.fillRect(0, 0,Game.Width, Game.Height);
         }
 
@@ -64,18 +64,18 @@ public class VFX {
             }
 
             if(time == 1){
-                if(nightA < 191){
-                    nightA = nightA + 20;
-                    if(nightA > 191)
-                        nightA = 191;
+                if(timeTrans < 191){
+                    timeTrans = timeTrans + 20;
+                    if(timeTrans > 191)
+                        timeTrans = 191;
                 }
             }
 
             if(time == 0){
-                if(nightA > 0){
-                    nightA = nightA - 20;
-                    if(nightA < 0)
-                        nightA = 0;
+                if(timeTrans > 0){
+                    timeTrans = timeTrans - 20;
+                    if(timeTrans < 0)
+                        timeTrans = 0;
                 }
             }
         }

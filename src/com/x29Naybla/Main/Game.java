@@ -134,8 +134,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
             pause.tick();
             if(Menu.saveGame){
                 Menu.saveGame = false;
-                String[] opt1 = {"energy","life","facing","xpos","ypos","xcoord","ycoord","days"};
-                int[] opt2 = {(int) player.energy,(int)player.life, player.dir,player.getX(),player.getY(),player.coord_x,player.coord_y,vfx.days};
+                String[] opt1 = {"energy","life","facing","xpos","ypos","xcoord","ycoord","days","selected", "weather", "dayTimer", "time", "timeTrans"};
+                int[] opt2 = {(int)player.energy, (int)player.life, player.dir, player.getX(), player.getY(), player.coord_x, player.coord_y, vfx.days, inventory.selected, vfx.weather, (int)vfx.dayTimer, vfx.time, vfx.timeTrans};
                 Menu.saveGame(opt1, opt2, 29);
                 System.out.println("You saved the game");
             }
