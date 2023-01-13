@@ -14,7 +14,7 @@ public class Menu {
     public boolean up, down, enter;
     public static boolean saveExists = false, saveGame = false;
     public void tick(){
-        File file = new File("world.txt");
+        File file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
         if(file.exists()){
             saveExists = true;
         }else {
@@ -39,10 +39,10 @@ public class Menu {
             if(Language.options[currOption].equals(Language.options[0])){
                 Game.gameState = "playing";
                 newGame();
-                file = new File("world.txt");
+                file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
                 file.delete();
             }else if(Language.options[currOption].equals(Language.options[1])){
-                file = new File("world.txt");
+                file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
                 if(file.exists()){
                     String saver = loadGame(29);
                     applyGame(saver);
@@ -91,6 +91,7 @@ public class Menu {
                 break;
                 case "weather":
                     Game.vfx.weather = Integer.parseInt(spl2[1]);
+                break;
                 case "dayTimer":
                     Game.vfx.dayTimer = Double.parseDouble(spl2[1]);
                 break;
@@ -105,11 +106,11 @@ public class Menu {
     }
     public static String loadGame(int encode){
         String line = "";
-        File file = new File("world.txt");
+        File file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
         if(file.exists()){
             try{
                 String singleLine = null;
-                BufferedReader reader = new BufferedReader(new FileReader("world.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt"));
                 try{
                     while ((singleLine = reader.readLine()) != null){
                         String[] trans = singleLine.split(":");
@@ -132,7 +133,7 @@ public class Menu {
     public static void saveGame(String[] val1, int[] val2, int encode){
         BufferedWriter writer = null;
         try{
-            writer = new BufferedWriter(new FileWriter("world.txt"));
+            writer = new BufferedWriter(new FileWriter(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt"));
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -13,12 +13,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.x29Naybla.Main.Language.loadSettings;
 import static javax.swing.JFrame.*;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
