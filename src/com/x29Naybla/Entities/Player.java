@@ -19,8 +19,8 @@ public class Player extends Entity {
     public int speed = 1;
     public boolean isRunning = false;
 
-    public  double life = 20, maxLife = 20;
-    public  double energy = 20, maxEnergy = 20;
+    public double life = 20, energy = 20;
+    public static double maxLife = 20, maxEnergy = 20;
 
     public int coord_x = 0, coord_y = 0;
 
@@ -42,17 +42,17 @@ public class Player extends Entity {
         rightPlayer = new BufferedImage[4];
 
         for(int i = 0; i < 4; i++){
-            upPlayer[i] = Game.spritesheet.getSprite(112 +(i * 16), 144, 16, 16);
+            upPlayer[i] = Game.spritesheet.getSprite(64 +(i * 16), 144, 16, 16);
         }
         for(int i = 0; i < 4; i++){
-            downPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 160, 16, 16);
+            downPlayer[i] = Game.spritesheet.getSprite(64 +(i*16), 160, 16, 16);
         }
         for(int i = 0; i < 4; i++){
-            leftPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 176, 16, 16);
+            leftPlayer[i] = Game.spritesheet.getSprite(64 +(i*16), 176, 16, 16);
 ;
         }
         for(int i = 0; i < 4; i++){
-            rightPlayer[i] = Game.spritesheet.getSprite(112 +(i*16), 192, 16, 16);
+            rightPlayer[i] = Game.spritesheet.getSprite(64 +(i*16), 192, 16, 16);
         }
     }
 
@@ -120,7 +120,6 @@ public class Player extends Entity {
             energy--;
             if(energy <= 0){
                 isRunning = false;
-                speed = 1;
             }
         }
 

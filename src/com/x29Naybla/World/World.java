@@ -17,6 +17,7 @@ public class World {
     public static Tile[][] tiles;
     public static int Width,Height;
     public static int ActW, ActH;
+    public int spawnX,spawnY;
 
     public World(String path){
         try {
@@ -37,6 +38,9 @@ public class World {
                         //player
                         Game.player.setX(xx*16);
                         Game.player.setY(yy*16);
+
+                        spawnX = xx;
+                        spawnY = yy;
                     }
 
                     ActW = (world.getWidth()*16) -17;

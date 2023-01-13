@@ -1,0 +1,8 @@
+energy:NS
+life:OM
+facing:O
+xpos:RTP
+ypos:OPT
+xcoord:QVP
+ycoord:SN
+days:M

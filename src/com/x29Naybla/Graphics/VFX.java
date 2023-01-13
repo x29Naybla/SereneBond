@@ -47,7 +47,7 @@ public class VFX {
         if(gameState == "playing"){
             dayTimer++;
 
-            if(dayTimer >= 30){
+            if(dayTimer >= (12*60)){
                 VFX.time++;
                 dayTimer = 0;
                 if(VFX.time > VFX.dayParts){

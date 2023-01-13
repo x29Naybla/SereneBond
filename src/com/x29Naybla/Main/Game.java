@@ -7,21 +7,24 @@ import com.x29Naybla.Graphics.Spritesheet;
 import com.x29Naybla.Graphics.UI;
 import com.x29Naybla.World.World;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static javax.swing.JFrame.*;
 
-public class Game extends Canvas implements Runnable, KeyListener{
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {
 
     public static JFrame frame;
+    public static boolean wheelUp, wheelDown;
     String frameName = "Serene Bond";
     public static final int Width = 240, Height = 160, Scale = 3;
 
@@ -43,33 +46,41 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
     public static List<Entity> entities;
     public static Player player;
-    public UI ui;
-    public VFX vfx;
+    public static Inventory inventory;
 
-    public boolean saveGame = false;
+    public UI ui;
+    public static VFX vfx;
 
     public Game(){
+        frame();
         rand = new Random();
         language = new Language();
         menu = new Menu();
         pause = new Pause();
+        ui = new UI();
+        vfx = new VFX();
+        image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
+        spritesheet = new Spritesheet("/default.png");
+        inventory = new Inventory();
+        newGame();
+    }
 
+    public void frame(){
         setPreferredSize(new Dimension(Width*Scale, Height*Scale));
         frame = new JFrame(frameName);
         frame.add(this);
         frame.setVisible(true);
         frame.setFocusable(true);
         frame.pack();
-        frame.setIconImage(new ImageIcon("/icon.png").getImage());
+        Image icon = null;
+        try{ icon = ImageIO.read(getClass().getResource("/icon.png"));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        frame.setIconImage(icon);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        ui = new UI();
-        vfx = new VFX();
-        image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
-        spritesheet = new Spritesheet("/default.png");
-        newGame();
     }
 
     public synchronized void start() {
@@ -91,6 +102,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
         Game game = new Game();
         game.start();
         game.addKeyListener(game);
+        game.addMouseListener(game);
+        game.addMouseWheelListener(game);
     }
     public void tick() {
         if(gameState.equals("playing")){
@@ -104,16 +117,28 @@ public class Game extends Canvas implements Runnable, KeyListener{
                     }
                     if(player.getX() > World.ActW){
                         player.setX(0);
-                        player.coord_x = (-3*16);
+                        player.coord_x = (-5*16);
                     }
-
+                    if(player.isRunning){
+                        player.speed = 2;
+                    }else if(!player.isRunning){
+                        player.speed = 1;
+                    }
                 }
                 e.tick();
             }
+            inventory.tick();
         }else if(gameState.equals("dead")){
 
         }else if(gameState.equals("paused")){
             pause.tick();
+            if(Menu.saveGame){
+                Menu.saveGame = false;
+                String[] opt1 = {"energy","life","facing","xpos","ypos","xcoord","ycoord","days"};
+                int[] opt2 = {(int) player.energy,(int)player.life, player.dir,player.getX(),player.getY(),player.coord_x,player.coord_y,vfx.days};
+                Menu.saveGame(opt1, opt2, 29);
+                System.out.println("You saved the game");
+            }
         }else if(gameState.equals("menu")){
             menu.tick();
             language.tick();
@@ -122,12 +147,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
     }
 
-    public void newGame(){
+    public static void newGame(){
         entities = new ArrayList<Entity>();
         player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
         entities.add(player);
         world = new World("/world.png");
-        return;
     }
 
     public void render() {
@@ -140,6 +164,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
         g.setColor(Color.black);
         g.fillRect(0,0,Width,Height);
 
+
         world.render(g);
         for(int i = 0; i < entities.size(); i++){
             Entity e = entities.get(i);
@@ -147,6 +172,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
         }
 
         vfx.render(g);
+        ui.render(g);
 
         if(debug){
             g.setFont(new Font("Arial", Font.BOLD, 8));
@@ -157,12 +183,13 @@ public class Game extends Canvas implements Runnable, KeyListener{
             g.drawString("Y: "+ (player.coord_y / 16), 4, 37);
         }
 
-        ui.render(g);
         g.dispose();
         g = bs.getDrawGraphics();
         g.drawImage(image,0,0,Width*Scale,Height*Scale, null);
 
-        if(gameState.equals("dead")){
+        if(gameState.equals("playing")){
+            inventory.render(g);
+        }else if(gameState.equals("dead")){
             g.setColor(new Color(0,0,0, 128));
             g.fillRect(0,0,Width*Scale,Height*Scale);
 
@@ -181,6 +208,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
 
     public void run() {
+        requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -197,7 +225,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
                 render();
                 frames++;
                 delta--;
-
             }
 
             if(System.currentTimeMillis() - timer >= 1000){
@@ -219,6 +246,39 @@ public class Game extends Canvas implements Runnable, KeyListener{
     }
     public void keyPressed(KeyEvent e) {
 
+        if(e.getKeyCode() == KeyEvent.VK_1||
+                e.getKeyCode() == KeyEvent.VK_2||
+                e.getKeyCode() == KeyEvent.VK_3||
+                e.getKeyCode() == KeyEvent.VK_4||
+                e.getKeyCode() == KeyEvent.VK_5||
+                e.getKeyCode() == KeyEvent.VK_6||
+                e.getKeyCode() == KeyEvent.VK_7||
+                e.getKeyCode() == KeyEvent.VK_8||
+                e.getKeyCode() == KeyEvent.VK_9||
+                e.getKeyCode() == KeyEvent.VK_0){
+            if(e.getKeyCode() == KeyEvent.VK_1)
+                inventory.selected = 0;
+            if(e.getKeyCode() == KeyEvent.VK_2)
+                inventory.selected = 1;
+            if(e.getKeyCode() == KeyEvent.VK_3)
+                inventory.selected = 2;
+            if(e.getKeyCode() == KeyEvent.VK_4)
+                inventory.selected = 3;
+            if(e.getKeyCode() == KeyEvent.VK_5)
+                inventory.selected = 4;
+            if(e.getKeyCode() == KeyEvent.VK_6)
+                inventory.selected = 5;
+            if(e.getKeyCode() == KeyEvent.VK_7)
+                inventory.selected = 6;
+            if(e.getKeyCode() == KeyEvent.VK_8)
+                inventory.selected = 7;
+            if(e.getKeyCode() == KeyEvent.VK_9)
+                inventory.selected = 8;
+            if(e.getKeyCode() == KeyEvent.VK_0)
+                inventory.selected = 9;
+
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_F1 && gameState.equals("playing")){
             if(!debug){
                 debug = true;
@@ -238,25 +298,22 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             if(gameState.equals("menu")){
-                if(Language.options[menu.currOption] == Language.options[0]){
-                    gameState = "playing";
-                    newGame();
-                }else if(Language.options[menu.currOption] == Language.options[1]){
-                }else if(Language.options[menu.currOption] == Language.options[2]){
-                    language.changeLang();
-                }else if(Language.options[menu.currOption] == Language.options[3]){
-                    System.exit(0);
-                }
+                menu.enter = true;
             }
             if(gameState.equals("dead")){
                 gameState = "playing";
-                newGame();
+                player.life = player.maxLife;
+                player.energy = player.maxEnergy;
+                player.setX(world.spawnX*16);
+                player.setY(world.spawnY*16);
+                player.coord_x = 0;
+                player.coord_y = 0;
             }
             if(gameState.equals("paused")){
                 if(Language.pause[pause.currOption].equals(Language.pause[0])){
                     gameState = "menu";
                 }else if(Language.pause[pause.currOption].equals(Language.pause[1])){
-                    this.saveGame = true;
+                    Menu.saveGame = true;
                 }
             }
 
@@ -264,7 +321,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_SHIFT && !(player.energy <= 0)){
             player.isRunning = true;
-            player.speed = 2;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP){
@@ -295,7 +351,6 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_SHIFT){
             player.isRunning = false;
-            player.speed = 1;
         }
 
         if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP){
@@ -307,6 +362,47 @@ public class Game extends Canvas implements Runnable, KeyListener{
             player.left = false;
         }else if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT){
             player.right = false;
+        }
+    }
+
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON1)
+            inventory.mouseL = true;
+
+
+        if(e.getButton() == MouseEvent.BUTTON3){
+            inventory.mouseR = true;
+        }
+
+        inventory.mx = e.getX();
+        inventory.my = e.getY();
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON3)
+            inventory.mouseR = false;
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getWheelRotation() == 1){
+            wheelUp = true;
+        }
+        if(e.getWheelRotation() == -1){
+            wheelDown = true;
         }
     }
 }
