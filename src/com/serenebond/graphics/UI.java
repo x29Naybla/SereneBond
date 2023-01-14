@@ -1,7 +1,6 @@
-package com.x29Naybla.Graphics;
+package com.serenebond.graphics;
 
-import com.x29Naybla.Entities.Player;
-import com.x29Naybla.Main.Game;
+import com.serenebond.main.Game;
 
 import java.awt.*;
 

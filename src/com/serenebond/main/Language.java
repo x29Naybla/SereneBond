@@ -1,8 +1,6 @@
-package com.x29Naybla.Main;
+package com.serenebond.main;
 
 import java.io.*;
-
-import static com.x29Naybla.Main.Game.newGame;
 
 public class Language {
 

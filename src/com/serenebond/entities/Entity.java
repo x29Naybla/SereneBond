@@ -1,6 +1,6 @@
-package com.x29Naybla.Entities;
+package com.serenebond.entities;
 
-import com.x29Naybla.World.Camera;
+import com.serenebond.world.Camera;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

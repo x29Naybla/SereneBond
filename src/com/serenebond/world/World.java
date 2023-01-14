@@ -1,16 +1,11 @@
-package com.x29Naybla.World;
+package com.serenebond.world;
 
-import com.x29Naybla.Entities.Entity;
-import com.x29Naybla.Entities.Player;
-import com.x29Naybla.Graphics.Spritesheet;
-import com.x29Naybla.Main.Game;
-import com.x29Naybla.Tiles.WallTileType;
+import com.serenebond.main.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class World {
 

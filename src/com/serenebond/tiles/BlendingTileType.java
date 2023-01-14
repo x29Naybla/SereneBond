@@ -1,10 +1,7 @@
-package com.x29Naybla.Tiles;
+package com.serenebond.tiles;
 
-import com.x29Naybla.Main.Game;
-import com.x29Naybla.World.Tile;
-import com.x29Naybla.World.World;
+import com.serenebond.main.Game;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class BlendingTileType extends GroundTileType {

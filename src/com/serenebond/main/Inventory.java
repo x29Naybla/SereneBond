@@ -1,18 +1,17 @@
-package com.x29Naybla.Main;
+package com.serenebond.main;
 
-import com.x29Naybla.Tiles.TileType;
-import com.x29Naybla.Tiles.WallTileType;
-import com.x29Naybla.World.Camera;
-import com.x29Naybla.World.Tile;
-import com.x29Naybla.World.TileTypes;
-import com.x29Naybla.World.World;
+import com.serenebond.tiles.TileType;
+import com.serenebond.tiles.WallTileType;
+import com.serenebond.world.Camera;
+import com.serenebond.world.Tile;
+import com.serenebond.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.x29Naybla.Main.Game.gameState;
-import static com.x29Naybla.Main.Game.player;
-import static com.x29Naybla.World.TileTypes.itemsTileType;
+import static com.serenebond.main.Game.gameState;
+import static com.serenebond.main.Game.player;
+import static com.serenebond.world.TileTypes.itemsTileType;
 
 public class Inventory {
 
@@ -64,7 +63,7 @@ public class Inventory {
                     if((player.getX()/16 == tilex && player.getY()/16 == tiley) ||
                             (player.getX()/16 == tilex && (player.getY()+16)/16 == tiley) ||
                             ((player.getX()+16)/16 == tilex && player.getY()/16 == tiley) ||
-                            ((player.getX()+16)/16 == tilex && player.getY()+16/16 == tiley)){
+                            ((player.getX()+16)/16 == tilex && (player.getY()+16)/16 == tiley)){
 
                     }else{
                         World.tiles[tilex][tiley] = new Tile(tilex, tiley, tileType);

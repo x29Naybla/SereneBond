@@ -1,15 +1,14 @@
-package com.x29Naybla.Entities;
+package com.serenebond.entities;
 
-import com.x29Naybla.Main.Game;
-import com.x29Naybla.World.Camera;
-import com.x29Naybla.World.World;
+import com.serenebond.main.Game;
+import com.serenebond.world.Camera;
+import com.serenebond.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.x29Naybla.Main.Game.gameState;
-import static com.x29Naybla.Main.Game.world;
-import static com.x29Naybla.World.World.isFree;
+import static com.serenebond.main.Game.gameState;
+import static com.serenebond.world.World.isFree;
 
 public class Player extends Entity {
 

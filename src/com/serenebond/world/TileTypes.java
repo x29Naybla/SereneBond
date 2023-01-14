@@ -1,7 +1,7 @@
-package com.x29Naybla.World;
+package com.serenebond.world;
 
-import com.x29Naybla.Main.Item;
-import com.x29Naybla.Tiles.*;
+import com.serenebond.main.Item;
+import com.serenebond.tiles.*;
 
 import java.util.HashMap;
 import java.util.Map;

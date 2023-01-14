@@ -1,6 +1,4 @@
-package com.x29Naybla.Main;
-
-import com.x29Naybla.World.TileTypes;
+package com.serenebond.main;
 
 import java.awt.image.BufferedImage;
 

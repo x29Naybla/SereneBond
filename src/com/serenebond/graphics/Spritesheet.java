@@ -1,4 +1,4 @@
-package com.x29Naybla.Graphics;
+package com.serenebond.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

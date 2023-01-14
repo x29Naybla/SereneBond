@@ -1,8 +1,8 @@
-package com.x29Naybla.Tiles;
+package com.serenebond.tiles;
 
-import com.x29Naybla.World.Camera;
-import com.x29Naybla.World.Tile;
-import com.x29Naybla.World.World;
+import com.serenebond.world.Camera;
+import com.serenebond.world.Tile;
+import com.serenebond.world.World;
 
 import java.awt.*;
 

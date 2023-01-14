@@ -1,4 +1,4 @@
-package com.x29Naybla.Tiles;
+package com.serenebond.tiles;
 
 public class WallTileType extends SimpleTileType{
     public WallTileType(int u, int v) {

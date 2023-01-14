@@ -1,10 +1,10 @@
-package com.x29Naybla.Main;
+package com.serenebond.main;
 
 import java.awt.*;
 import java.io.*;
 
-import static com.x29Naybla.Main.Game.language;
-import static com.x29Naybla.Main.Game.newGame;
+import static com.serenebond.main.Game.language;
+import static com.serenebond.main.Game.newGame;
 
 public class Menu {
 

@@ -1,6 +1,6 @@
-package com.x29Naybla.World;
+package com.serenebond.world;
 
-import com.x29Naybla.Tiles.TileType;
+import com.serenebond.tiles.TileType;
 
 import java.awt.*;
 

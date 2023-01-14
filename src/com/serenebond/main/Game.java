@@ -1,11 +1,11 @@
-package com.x29Naybla.Main;
+package com.serenebond.main;
 
-import com.x29Naybla.Entities.Entity;
-import com.x29Naybla.Entities.Player;
-import com.x29Naybla.Graphics.VFX;
-import com.x29Naybla.Graphics.Spritesheet;
-import com.x29Naybla.Graphics.UI;
-import com.x29Naybla.World.World;
+import com.serenebond.entities.Entity;
+import com.serenebond.entities.Player;
+import com.serenebond.graphics.VFX;
+import com.serenebond.graphics.Spritesheet;
+import com.serenebond.graphics.UI;
+import com.serenebond.world.World;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.x29Naybla.Main.Language.loadSettings;
 import static javax.swing.JFrame.*;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseWheelListener {

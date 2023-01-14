@@ -1,11 +1,11 @@
-package com.x29Naybla.Graphics;
+package com.serenebond.graphics;
 
-import com.x29Naybla.Main.Game;
+import com.serenebond.main.Game;
 
 import java.awt.*;
 
-import static com.x29Naybla.Main.Game.gameState;
-import static com.x29Naybla.Main.Game.rand;
+import static com.serenebond.main.Game.gameState;
+import static com.serenebond.main.Game.rand;
 
 public class VFX {
 

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.x29Naybla.Main.Game
+Main-Class: com.serenebond.main.Game
 
