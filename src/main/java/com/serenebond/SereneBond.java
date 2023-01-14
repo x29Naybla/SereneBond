@@ -1,18 +1,18 @@
 package com.serenebond;
 
-import com.serenebond.entity.Entity;
-import com.serenebond.entity.Player;
 import com.serenebond.graphics.EntityGraphics;
+import com.serenebond.graphics.WorldGraphics;
+import com.serenebond.world.World;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11C.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL46.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL46.glClear;
 
 public final class SereneBond {
     private final Window window = new Window();
@@ -21,25 +21,28 @@ public final class SereneBond {
 
     // Graphics.
     private final EntityGraphics entityGraphics = new EntityGraphics();
+    private final WorldGraphics worldGraphics = new WorldGraphics();
 
     // Matrices.
     private final Matrix4f projection = new Matrix4f();
     private final Matrix4fStack modelView = new Matrix4fStack(2);
 
-    private final List<Entity> entities = new ArrayList<>();
-
-    private final Player player = new Player();
-
     private final Settings settings;
 
     private State state = State.IN_GAME;
+
+    private World world;
 
     SereneBond(Settings settings) {
         this.settings = settings;
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> running.set(false)));
 
-        entities.add(player);
+        try {
+            world = World.from("object/template/world.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void step() {
@@ -59,9 +62,9 @@ public final class SereneBond {
             while (delta >= fps) {
                 delta -= fps;
 
-                entities.forEach(Entity::step);
-
-                player.step(settings.keysBinds);
+                if (world != null) {
+                    world.step(settings);
+                }
 
                 draw();
 
@@ -90,7 +93,9 @@ public final class SereneBond {
 
         switch (state) {
             case IN_GAME -> {
-                entityGraphics.draw(entities, projection, modelView);
+                entityGraphics.draw(world.entities, projection, modelView);
+
+                worldGraphics.draw(world, projection, modelView);
             }
 
             default -> {

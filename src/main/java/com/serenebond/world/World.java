@@ -1,8 +1,11 @@
 package com.serenebond.world;
 
 import com.serenebond.Resources;
-import com.serenebond.original.entities.Entity;
+import com.serenebond.Settings;
+import com.serenebond.entity.Entity;
+import com.serenebond.entity.Player;
 import com.serenebond.persistent.WritablePersistent;
+import com.serenebond.tile.Tile;
 import org.lwjgl.system.MemoryStack;
 
 import java.io.DataOutput;
@@ -16,18 +19,36 @@ import static org.lwjgl.system.MemoryUtil.memAddress;
 import static org.lwjgl.system.MemoryUtil.memFree;
 
 public final class World implements WritablePersistent {
-    private final List<Entity> entities = new ArrayList<>();
+    public final List<Entity> entities = new ArrayList<>();
+
+    private final Player player = new Player();
 
     public final int width;
     public final int height;
 
-    public World(int width, int height) {
+    public final Tile[][] tiles;
+
+    public World(int width, int height, Tile[][] tiles) {
         this.width = width;
         this.height = height;
+
+        this.tiles = tiles;
+
+        entities.add(player);
+
+        // var position = player.position;
+        // position.x = width / 2.0F;
+        // position.y = height / 2.0F;
     }
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
+    }
+
+    public void step(Settings settings) {
+        player.step(settings.keysBinds);
+
+        entities.forEach(Entity::step);
     }
 
     public static World from(String image) throws IOException {
@@ -40,10 +61,12 @@ public final class World implements WritablePersistent {
             var width = buffer.get(0);
             var height = buffer.get(1);
 
+            var tiles = new Tile[width][height];
+
             memFree(memory);
             nstbi_image_free(pixels);
 
-            return new World(width, height);
+            return new World(width, height, tiles);
         }
     }
 }

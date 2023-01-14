@@ -16,7 +16,7 @@ public final class KeysBinds {
         this.map = map;
     }
 
-    public boolean held(String unlocalized) {
+    public boolean pressed(String unlocalized) {
         return CHAR_TO_BOOLEAN.getOrDefault(map.get(unlocalized).toUpperCase(Locale.ROOT).charAt(0), false);
     }
 

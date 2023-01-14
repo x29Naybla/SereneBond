@@ -40,9 +40,9 @@ public final class EntityGraphics {
             {
                 var buffer = memCalloc(22, 4);
                 buffer.putFloat(-0.5F).putFloat(-0.5F).putFloat(0.0F).putFloat(1.0F);
-                buffer.putFloat(0.5F).putFloat(-0.5F).putFloat(0.0F).putFloat(1.0F);
-                buffer.putFloat(0.5F).putFloat(0.5F).putFloat(0.0F).putFloat(1.0F);
-                buffer.putFloat(-0.5F).putFloat(0.5F).putFloat(0.0F).putFloat(1.0F);
+                buffer.putFloat( 0.5F).putFloat(-0.5F).putFloat(0.0F).putFloat(1.0F);
+                buffer.putFloat( 0.5F).putFloat( 0.5F).putFloat(0.0F).putFloat(1.0F);
+                buffer.putFloat(-0.5F).putFloat( 0.5F).putFloat(0.0F).putFloat(1.0F);
 
                 buffer
                         .putInt(0).putInt(1).putInt(2)
