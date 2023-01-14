@@ -16,7 +16,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 
-    org.lwjgl.Lwjgl { implementation(glfw, opengl) }
+    org.lwjgl.Lwjgl { implementation(glfw, opengl, stb) }
 
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("commons-cli:commons-cli:1.5.0")

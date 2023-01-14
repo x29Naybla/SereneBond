@@ -2,6 +2,8 @@ package com.serenebond;
 
 import com.google.gson.GsonBuilder;
 import com.serenebond.original.main.Game;
+import com.serenebond.tile.Tile;
+import com.serenebond.tile.Tiles;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -18,7 +20,7 @@ public final class Main {
     private Main() {}
 
     public static void main(String[] args) {
-        // launchOriginal();
+        launchOriginal();
 
         var options = new Options();
         options.addOption("directory", true, "Runtime directory");
@@ -36,9 +38,15 @@ public final class Main {
                 }
             }
 
-            var gson = new GsonBuilder().registerTypeAdapter(Settings.class, new Settings.Codec()).setPrettyPrinting().create();
+            var gson = new GsonBuilder()
+                    .registerTypeAdapter(Settings.class, new Settings.Codec())
+                    .registerTypeAdapter(Tile.class, new Tile.Codec())
+                    .setPrettyPrinting().
+                    create();
 
             var settings = Settings.of(directory, gson);
+
+            Tiles.register(gson);
 
             if (!glfwInit()) {
                 throw new RuntimeException("Failed to initialize GLFW.");

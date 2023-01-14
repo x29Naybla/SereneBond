@@ -8,6 +8,7 @@ import org.joml.Matrix4fStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
@@ -18,11 +19,12 @@ public final class SereneBond {
 
     private final AtomicBoolean running = new AtomicBoolean(true);
 
-    private final Matrix4f projection = new Matrix4f();
-    private final Matrix4fStack modelView = new Matrix4fStack(2);
-
     // Graphics.
     private final EntityGraphics entityGraphics = new EntityGraphics();
+
+    // Matrices.
+    private final Matrix4f projection = new Matrix4f();
+    private final Matrix4fStack modelView = new Matrix4fStack(2);
 
     private final List<Entity> entities = new ArrayList<>();
 
@@ -41,13 +43,39 @@ public final class SereneBond {
     }
 
     public void step() {
+        // Fixed Time-step.
+        var previous = System.nanoTime();
+        var delta = 0.0D;
+
         while (running.getAndSet(!window.shouldClose())) {
-            entities.forEach(Entity::step);
+            var fps = 1000000000.0D / 60.0D;
 
-            player.step(settings.keysBinds);
+            var now = System.nanoTime();
+            var elapsed = now - previous;
 
-            draw();
-            window.swapBuffers();
+            previous = now;
+
+            delta += elapsed;
+            while (delta >= fps) {
+                delta -= fps;
+
+                entities.forEach(Entity::step);
+
+                player.step(settings.keysBinds);
+
+                draw();
+
+                window.swapBuffers();
+            }
+
+            if (elapsed < fps) {
+                try {
+                    //noinspection BusyWait
+                    Thread.sleep(TimeUnit.NANOSECONDS.toMillis((long) (fps - elapsed)));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -55,7 +83,7 @@ public final class SereneBond {
         glClear(GL_COLOR_BUFFER_BIT);
 
         var aspectRatio = window.getAspectRatio();
-        var fieldOfView = 0.785398F;
+        var fieldOfView = 2.79253F;
 
         projection.identity();
         projection.ortho(-fieldOfView * aspectRatio, fieldOfView * aspectRatio, -fieldOfView, fieldOfView, 1.0F, -1.0F);

@@ -1,28 +1,28 @@
 package com.serenebond.tile;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
+import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public final class Tiles {
-    public static final Tile DIRT = null;
-    public static final Tile GRASS = null;
-    public static final Tile SAND = null;
-    public static final Tile STONE = null;
-    public static final Tile WATER = null;
+    private static final Map<String, Tile> MAP = new HashMap<>();
+
+    private static final Tile MISSING_ENTRY = new Tile();
+
+    public static final Supplier<Tile> DIRT = of("dirt");
+    public static final Supplier<Tile> GRASS = of("grass");
+    public static final Supplier<Tile> SAND = of("sand");
+    public static final Supplier<Tile> STONE = of("stone");
+    public static final Supplier<Tile> WATER = of("water");
 
     private Tiles() {}
 
-    private static final class Codec implements JsonDeserializer<Tile> {
+    public static void register(Gson gson) {
+    }
 
-        private Codec() {}
-
-        @Override
-        public Tile deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            return null;
-        }
+    private static Supplier<Tile> of(String tile) {
+        return () -> MAP.getOrDefault(tile, MISSING_ENTRY);
     }
 }

@@ -155,10 +155,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     }
 
     public static void newGame(){
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<>();
         player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
         entities.add(player);
-        world = new World("/object/world/world.png");
+        world = new World("/object/template/snow.png");
+
+        player.setX((World.Width / 2) * 15);
+        player.setY((World.Height / 2) * 15);
     }
 
     public void render() {
