@@ -19,6 +19,7 @@ dependencies {
     org.lwjgl.Lwjgl { implementation(glfw, opengl) }
 
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("commons-cli:commons-cli:1.5.0")
 }
 
 tasks.getByName<Test>("test") {
