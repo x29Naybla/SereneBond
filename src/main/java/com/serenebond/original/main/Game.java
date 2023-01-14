@@ -62,13 +62,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         ui = new UI();
         vfx = new VFX();
         image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
-        spritesheet = new Spritesheet("/default.png");
+        spritesheet = new Spritesheet("/resource/sprite/default.png");
         inventory = new Inventory();
         newGame();
 
         var gson = new GsonBuilder().registerTypeAdapter(Language.class, new Language.Codec()).create();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resources.get("resources/language/english.json")))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resources.get("resource/language/english.json")))) {
             language = gson.fromJson(reader, Language.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         frame.setFocusable(true);
         frame.pack();
         Image icon = null;
-        try{ icon = ImageIO.read(getClass().getResource("/icon.png"));
+        try{ icon = ImageIO.read(getClass().getResource("/resource/sprite/icon/icon.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         entities = new ArrayList<Entity>();
         player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
         entities.add(player);
-        world = new World("/world.png");
+        world = new World("/object/world/world.png");
     }
 
     public void render() {

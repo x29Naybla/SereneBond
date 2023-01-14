@@ -73,8 +73,8 @@ public final class EntityGraphics {
         var fragment = 0;
         var vertex = 0;
         try {
-            fragment = glCreateShaderProgramv(GL_FRAGMENT_SHADER, Resources.glsl("resources/shader/entity_fragment.glsl"));
-            vertex = glCreateShaderProgramv(GL_VERTEX_SHADER, Resources.glsl("resources/shader/entity_vertex.glsl"));
+            fragment = glCreateShaderProgramv(GL_FRAGMENT_SHADER, Resources.glsl("resource/shader/entity_fragment.glsl"));
+            vertex = glCreateShaderProgramv(GL_VERTEX_SHADER, Resources.glsl("resource/shader/entity_vertex.glsl"));
         } catch (IOException e) {
             e.printStackTrace();
         }

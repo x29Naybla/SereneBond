@@ -48,9 +48,7 @@ public final class Window {
             glViewport(0, 0, width, height);
         });
 
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            KeysBinds.MAP.put(key, action != GLFW_RELEASE);
-        });
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> KeysBinds.CHAR_TO_BOOLEAN.put(key, action != GLFW_RELEASE));
 
         glfwMakeContextCurrent(window);
 

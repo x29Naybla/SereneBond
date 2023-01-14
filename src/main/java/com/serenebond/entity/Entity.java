@@ -17,6 +17,6 @@ public sealed class Entity permits Player {
     }
 
     private static float lerp(float x, float z) {
-        return x + (-x * z);
+        return x + -x * z;
     }
 }

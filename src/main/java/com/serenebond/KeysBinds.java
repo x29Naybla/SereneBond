@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public final class KeysBinds {
-    static final Int2BooleanMap MAP = new Int2BooleanOpenHashMap();
+    static final Int2BooleanMap CHAR_TO_BOOLEAN = new Int2BooleanOpenHashMap();
 
     private final Map<String, String> map;
 
@@ -17,7 +17,7 @@ public final class KeysBinds {
     }
 
     public boolean held(String unlocalized) {
-        return MAP.getOrDefault(map.get(unlocalized).toUpperCase(Locale.ROOT).charAt(0), false);
+        return CHAR_TO_BOOLEAN.getOrDefault(map.get(unlocalized).toUpperCase(Locale.ROOT).charAt(0), false);
     }
 
     public Map<String, String> getMap() {

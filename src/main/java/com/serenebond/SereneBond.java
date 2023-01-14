@@ -21,7 +21,7 @@ public final class SereneBond {
     private final Matrix4f projection = new Matrix4f();
     private final Matrix4fStack modelView = new Matrix4fStack(2);
 
-    // FX
+    // Graphics.
     private final EntityGraphics entityGraphics = new EntityGraphics();
 
     private final List<Entity> entities = new ArrayList<>();
