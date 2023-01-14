@@ -1,5 +1,6 @@
 package com.serenebond;
 
+import com.google.gson.GsonBuilder;
 import com.serenebond.original.main.Game;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
@@ -17,7 +18,7 @@ public final class Main {
     private Main() {}
 
     public static void main(String[] args) {
-        launchOriginal();
+        // launchOriginal();
 
         var options = new Options();
         options.addOption("directory", true, "Runtime directory");
@@ -35,11 +36,15 @@ public final class Main {
                 }
             }
 
+            var gson = new GsonBuilder().registerTypeAdapter(Settings.class, new Settings.Codec()).setPrettyPrinting().create();
+
+            var settings = Settings.of(directory, gson);
+
             if (!glfwInit()) {
                 throw new RuntimeException("Failed to initialize GLFW.");
             }
 
-            var sereneBond = new SereneBond();
+            var sereneBond = new SereneBond(settings);
             sereneBond.step();
             sereneBond.close();
 

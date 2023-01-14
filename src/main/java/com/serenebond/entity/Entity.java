@@ -9,10 +9,14 @@ public sealed class Entity permits Player {
     private final BoundingBox boundingBox = new BoundingBox();
 
     public void step() {
-        position.z *= 0.5F;
-        position.w *= 0.5F;
+        position.z = lerp(position.z, 0.25F);
+        position.w = lerp(position.w, 0.25F);
 
         position.x += position.z;
         position.y += position.w;
+    }
+
+    private static float lerp(float x, float z) {
+        return x + (-x * z);
     }
 }

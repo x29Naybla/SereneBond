@@ -26,17 +26,25 @@ public final class SereneBond {
 
     private final List<Entity> entities = new ArrayList<>();
 
+    private final Player player = new Player();
+
+    private final Settings settings;
+
     private State state = State.IN_GAME;
 
-    {
+    SereneBond(Settings settings) {
+        this.settings = settings;
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> running.set(false)));
 
-        entities.add(new Player());
+        entities.add(player);
     }
 
     public void step() {
         while (running.getAndSet(!window.shouldClose())) {
             entities.forEach(Entity::step);
+
+            player.step(settings.keysBinds);
 
             draw();
             window.swapBuffers();

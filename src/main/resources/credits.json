@@ -1,0 +1,24 @@
+{
+  "author": "29Naybla",
+  "credits": {
+    "textures": "29Naybla",
+    "coding": [
+      "29Naybla",
+      "chaottic"
+    ],
+    "feedback": [
+      "Bagels",
+      "Pix3ls Spud",
+      "Conczin/Luke100000",
+      "TheComputerHead"
+    ],
+    "tile_blending": "Conczin/Luke100000",
+    "lemon_tree_colour_palette": "Bagels",
+    "little_guy": {
+      "user": "Nivvy",
+      "date": "03/01/2023",
+      "time": "01:56",
+      "time_zone": "UTC-03:00"
+    }
+  }
+}

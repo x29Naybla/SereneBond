@@ -22,6 +22,8 @@ dependencies {
     implementation("commons-cli:commons-cli:1.5.0")
 
     implementation("org.joml:joml:1.10.5")
+
+    implementation("it.unimi.dsi:fastutil:8.5.11")
 }
 
 tasks.getByName<Test>("test") {
