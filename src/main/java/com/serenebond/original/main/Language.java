@@ -1,4 +1,4 @@
-package com.serenebond.main;
+package com.serenebond.original.main;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

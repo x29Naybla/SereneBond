@@ -1,11 +1,8 @@
-package com.serenebond.graphics;
+package com.serenebond.original.graphics;
 
-import com.serenebond.main.Game;
+import com.serenebond.original.main.Game;
 
 import java.awt.*;
-
-import static com.serenebond.main.Game.gameState;
-import static com.serenebond.main.Game.rand;
 
 public class VFX {
 
@@ -20,7 +17,7 @@ public class VFX {
         if(time == 0){
             //day
             g.setColor(new Color(0,0, 25, timeTrans));
-            g.fillRect(0, 0,Game.Width, Game.Height);
+            g.fillRect(0, 0, Game.Width, Game.Height);
 
         }else if(time == 1){
             //night
@@ -44,7 +41,7 @@ public class VFX {
     }
 
     public void run(){
-        if(gameState == "playing"){
+        if(Game.gameState == "playing"){
             dayTimer++;
 
             if(dayTimer >= (12*60)){
@@ -52,9 +49,9 @@ public class VFX {
                 dayTimer = 0;
                 if(VFX.time > VFX.dayParts){
                     VFX.time= 0;
-                    if(rand.nextInt(100) < 75){
+                    if(Game.rand.nextInt(100) < 75){
                         VFX.weather = 0;
-                    }else if(rand.nextInt(100) < 50){
+                    }else if(Game.rand.nextInt(100) < 50){
                         VFX.weather = 1;
                     }else
                         VFX.weather = 2;

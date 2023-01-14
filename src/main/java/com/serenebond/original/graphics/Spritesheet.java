@@ -1,4 +1,4 @@
-package com.serenebond.graphics;
+package com.serenebond.original.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

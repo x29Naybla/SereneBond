@@ -1,17 +1,15 @@
-package com.serenebond.main;
+package com.serenebond.original.main;
 
-import com.serenebond.tiles.TileType;
-import com.serenebond.tiles.WallTileType;
-import com.serenebond.world.Camera;
-import com.serenebond.world.Tile;
-import com.serenebond.world.World;
+import com.serenebond.original.tiles.TileType;
+import com.serenebond.original.tiles.WallTileType;
+import com.serenebond.original.world.Camera;
+import com.serenebond.original.world.Tile;
+import com.serenebond.original.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.serenebond.main.Game.gameState;
-import static com.serenebond.main.Game.player;
-import static com.serenebond.world.TileTypes.itemsTileType;
+import static com.serenebond.original.world.TileTypes.itemsTileType;
 
 public class Inventory {
 
@@ -32,7 +30,7 @@ public class Inventory {
     }
     public void tick(){
 
-        if(gameState.equals("dead")){
+        if(Game.gameState.equals("dead")){
             items.clear();
             return;
 
@@ -60,10 +58,10 @@ public class Inventory {
             }else if (selected < items.size()){
                 TileType tileType = itemsTileType.get(items.get(selected).getID());
                 if(tileType instanceof WallTileType){
-                    if((player.getX()/16 == tilex && player.getY()/16 == tiley) ||
-                            (player.getX()/16 == tilex && (player.getY()+16)/16 == tiley) ||
-                            ((player.getX()+16)/16 == tilex && player.getY()/16 == tiley) ||
-                            ((player.getX()+16)/16 == tilex && (player.getY()+16)/16 == tiley)){
+                    if((Game.player.getX()/16 == tilex && Game.player.getY()/16 == tiley) ||
+                            (Game.player.getX()/16 == tilex && (Game.player.getY()+16)/16 == tiley) ||
+                            ((Game.player.getX()+16)/16 == tilex && Game.player.getY()/16 == tiley) ||
+                            ((Game.player.getX()+16)/16 == tilex && (Game.player.getY()+16)/16 == tiley)){
 
                     }else{
                         World.tiles[tilex][tiley] = new Tile(tilex, tiley, tileType);

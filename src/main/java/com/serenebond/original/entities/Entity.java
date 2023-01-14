@@ -1,6 +1,6 @@
-package com.serenebond.entities;
+package com.serenebond.original.entities;
 
-import com.serenebond.world.Camera;
+import com.serenebond.original.world.Camera;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

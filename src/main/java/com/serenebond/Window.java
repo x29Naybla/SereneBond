@@ -1,5 +1,6 @@
 package com.serenebond;
 
+import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -38,6 +39,8 @@ public final class Window {
         }
 
         glfwMakeContextCurrent(window);
+
+        GL.createCapabilities();
     }
 
     public boolean shouldClose() {

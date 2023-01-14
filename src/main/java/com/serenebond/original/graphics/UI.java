@@ -1,6 +1,6 @@
-package com.serenebond.graphics;
+package com.serenebond.original.graphics;
 
-import com.serenebond.main.Game;
+import com.serenebond.original.main.Game;
 
 import java.awt.*;
 

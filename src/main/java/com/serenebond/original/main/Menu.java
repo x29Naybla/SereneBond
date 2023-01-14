@@ -1,10 +1,7 @@
-package com.serenebond.main;
+package com.serenebond.original.main;
 
 import java.awt.*;
 import java.io.*;
-
-import static com.serenebond.main.Game.language;
-import static com.serenebond.main.Game.newGame;
 
 public class Menu {
 
@@ -38,7 +35,7 @@ public class Menu {
             enter = false;
             if(Language.OPTIONS[currOption].equals(Language.OPTIONS[0])){
                 Game.gameState = "playing";
-                newGame();
+                Game.newGame();
                 file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
                 file.delete();
             }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[1])){
@@ -48,7 +45,7 @@ public class Menu {
                     applyGame(saver);
                 }
             }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[2])){
-                language = Language.EMPTY;
+                Game.language = Language.EMPTY;
             }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[3])){
                 System.exit(0);
             }
@@ -61,7 +58,7 @@ public class Menu {
             String[] spl2 = spl[i].split(":");
             switch (spl2[0]){
                 case "energy":
-                    newGame();
+                    Game.newGame();
                     Game.player.energy = Double.parseDouble(spl2[1]);
                     Game.gameState = "playing";
                 break;
@@ -167,10 +164,10 @@ public class Menu {
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        g.drawString(language.get("new_world"), (Game.Width*Game.Scale) /2 - 75,160);
-        g.drawString(language.get("load_world"), (Game.Width*Game.Scale) /2 - 75,200);
-        g.drawString(language.get("change_language"), (Game.Width*Game.Scale) /2 - 75,240);
-        g.drawString(language.get("exit"), (Game.Width*Game.Scale) /2 - 75,280);
+        g.drawString(Game.language.get("new_world"), (Game.Width*Game.Scale) /2 - 75,160);
+        g.drawString(Game.language.get("load_world"), (Game.Width*Game.Scale) /2 - 75,200);
+        g.drawString(Game.language.get("change_language"), (Game.Width*Game.Scale) /2 - 75,240);
+        g.drawString(Game.language.get("exit"), (Game.Width*Game.Scale) /2 - 75,280);
 
         if(Language.OPTIONS[currOption] == Language.OPTIONS[0]){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 90,160);

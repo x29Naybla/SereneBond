@@ -1,7 +1,9 @@
-package com.serenebond.world;
+package com.serenebond.original.world;
 
-import com.serenebond.main.Item;
-import com.serenebond.tiles.*;
+import com.serenebond.original.main.Item;
+import com.serenebond.original.tiles.BlendingTileType;
+import com.serenebond.original.tiles.TileType;
+import com.serenebond.original.tiles.WallTileType;
 
 import java.util.HashMap;
 import java.util.Map;

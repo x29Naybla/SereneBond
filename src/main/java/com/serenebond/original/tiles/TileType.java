@@ -1,7 +1,7 @@
-package com.serenebond.tiles;
+package com.serenebond.original.tiles;
 
-import com.serenebond.world.Tile;
-import com.serenebond.world.World;
+import com.serenebond.original.world.Tile;
+import com.serenebond.original.world.World;
 
 import java.awt.*;
 

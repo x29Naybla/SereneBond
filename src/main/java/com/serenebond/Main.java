@@ -1,6 +1,6 @@
-package com.serenebond.main;
+package com.serenebond;
 
-import com.serenebond.SereneBond;
+import com.serenebond.original.main.Game;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;

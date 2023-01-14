@@ -1,14 +1,13 @@
-package com.serenebond.entities;
+package com.serenebond.original.entities;
 
-import com.serenebond.main.Game;
-import com.serenebond.world.Camera;
-import com.serenebond.world.World;
+import com.serenebond.original.main.Game;
+import com.serenebond.original.world.Camera;
+import com.serenebond.original.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.serenebond.main.Game.gameState;
-import static com.serenebond.world.World.isFree;
+import static com.serenebond.original.world.World.isFree;
 
 public class Player extends Entity {
 
@@ -94,7 +93,7 @@ public class Player extends Entity {
         }
 
         if(life <= 0){
-            gameState = "dead";
+            Game.gameState = "dead";
             life = 0;
         }
 

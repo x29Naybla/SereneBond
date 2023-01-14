@@ -1,9 +1,9 @@
-package com.serenebond.tiles;
+package com.serenebond.original.tiles;
 
-import com.serenebond.main.Game;
-import com.serenebond.world.Camera;
-import com.serenebond.world.Tile;
-import com.serenebond.world.World;
+import com.serenebond.original.main.Game;
+import com.serenebond.original.world.Camera;
+import com.serenebond.original.world.Tile;
+import com.serenebond.original.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

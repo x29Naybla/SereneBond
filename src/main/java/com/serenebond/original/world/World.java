@@ -1,6 +1,6 @@
-package com.serenebond.world;
+package com.serenebond.original.world;
 
-import com.serenebond.main.Game;
+import com.serenebond.original.main.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

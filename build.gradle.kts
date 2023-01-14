@@ -20,6 +20,8 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("commons-cli:commons-cli:1.5.0")
+
+    implementation("org.joml:joml:1.10.5")
 }
 
 tasks.getByName<Test>("test") {

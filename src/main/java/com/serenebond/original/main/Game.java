@@ -1,13 +1,13 @@
-package com.serenebond.main;
+package com.serenebond.original.main;
 
 import com.google.gson.GsonBuilder;
 import com.serenebond.Resources;
-import com.serenebond.entities.Entity;
-import com.serenebond.entities.Player;
-import com.serenebond.graphics.VFX;
-import com.serenebond.graphics.Spritesheet;
-import com.serenebond.graphics.UI;
-import com.serenebond.world.World;
+import com.serenebond.original.entities.Entity;
+import com.serenebond.original.entities.Player;
+import com.serenebond.original.graphics.VFX;
+import com.serenebond.original.graphics.Spritesheet;
+import com.serenebond.original.graphics.UI;
+import com.serenebond.original.world.World;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
     public static World world;
     public static Language language;
-    public static Menu menu;
+    public static com.serenebond.original.main.Menu menu;
     public static Pause pause;
     public static String gameState = "menu";
 
@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     public Game(){
         frame();
         rand = new Random();
-        menu = new Menu();
+        menu = new com.serenebond.original.main.Menu();
         pause = new Pause();
         ui = new UI();
         vfx = new VFX();
@@ -142,11 +142,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
         }else if(gameState.equals("paused")){
             pause.tick();
-            if(Menu.saveGame){
-                Menu.saveGame = false;
+            if(com.serenebond.original.main.Menu.saveGame){
+                com.serenebond.original.main.Menu.saveGame = false;
                 String[] opt1 = {"energy","life","facing","xpos","ypos","xcoord","ycoord","days","selected", "weather", "dayTimer", "time", "timeTrans"};
                 int[] opt2 = {(int)player.energy, (int)player.life, player.dir, player.getX(), player.getY(), player.coord_x, player.coord_y, vfx.days, inventory.selected, vfx.weather, (int)vfx.dayTimer, vfx.time, vfx.timeTrans};
-                Menu.saveGame(opt1, opt2, 29);
+                com.serenebond.original.main.Menu.saveGame(opt1, opt2, 29);
                 System.out.println("You saved the game");
             }
         }else if(gameState.equals("menu")){

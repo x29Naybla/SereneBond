@@ -1,6 +1,6 @@
-package com.serenebond.tiles;
+package com.serenebond.original.tiles;
 
-import com.serenebond.main.Game;
+import com.serenebond.original.main.Game;
 
 import java.awt.image.BufferedImage;
 
