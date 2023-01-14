@@ -9,7 +9,7 @@ import static com.serenebond.main.Game.newGame;
 public class Menu {
 
     public int currOption = 0;
-    public int maxOption = Language.options.length - 1;
+    public int maxOption = Language.OPTIONS.length - 1;
 
     public boolean up, down, enter;
     public static boolean saveExists = false, saveGame = false;
@@ -36,20 +36,20 @@ public class Menu {
         }
         if(enter){
             enter = false;
-            if(Language.options[currOption].equals(Language.options[0])){
+            if(Language.OPTIONS[currOption].equals(Language.OPTIONS[0])){
                 Game.gameState = "playing";
                 newGame();
                 file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
                 file.delete();
-            }else if(Language.options[currOption].equals(Language.options[1])){
+            }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[1])){
                 file = new File(System.getProperty("user.home")+"/AppData/Roaming/SereneBond/world.txt");
                 if(file.exists()){
                     String saver = loadGame(29);
                     applyGame(saver);
                 }
-            }else if(Language.options[currOption].equals(Language.options[2])){
-                language.changeLang();
-            }else if(Language.options[currOption].equals(Language.options[3])){
+            }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[2])){
+                language = Language.EMPTY;
+            }else if(Language.OPTIONS[currOption].equals(Language.OPTIONS[3])){
                 System.exit(0);
             }
         }
@@ -167,18 +167,18 @@ public class Menu {
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        g.drawString(Language.options[0], (Game.Width*Game.Scale) /2 - 75,160);
-        g.drawString(Language.options[1], (Game.Width*Game.Scale) /2 - 75,200);
-        g.drawString(Language.options[2], (Game.Width*Game.Scale) /2 - 75,240);
-        g.drawString(Language.options[3], (Game.Width*Game.Scale) /2 - 75,280);
+        g.drawString(language.get("new_world"), (Game.Width*Game.Scale) /2 - 75,160);
+        g.drawString(language.get("load_world"), (Game.Width*Game.Scale) /2 - 75,200);
+        g.drawString(language.get("change_language"), (Game.Width*Game.Scale) /2 - 75,240);
+        g.drawString(language.get("exit"), (Game.Width*Game.Scale) /2 - 75,280);
 
-        if(Language.options[currOption] == Language.options[0]){
+        if(Language.OPTIONS[currOption] == Language.OPTIONS[0]){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 90,160);
-        }else if(Language.options[currOption] == Language.options[1]){
+        }else if(Language.OPTIONS[currOption] == Language.OPTIONS[1]){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 90,200);
-        }else if(Language.options[currOption] == Language.options[2]){
+        }else if(Language.OPTIONS[currOption] == Language.OPTIONS[2]){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 90,240);
-        }if(Language.options[currOption] == Language.options[3]){
+        }if(Language.OPTIONS[currOption] == Language.OPTIONS[3]){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 90,280);
         }
     }

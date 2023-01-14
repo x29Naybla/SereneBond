@@ -5,7 +5,7 @@ import java.awt.*;
 public class Pause {
 
     public int currOption = 0;
-    public int maxOption = Language.pause.length - 1;
+    public int maxOption = Language.PAUSE.length - 1;
 
     public boolean up,down;
 
@@ -31,16 +31,16 @@ public class Pause {
 
         g.setFont(new Font("Arial", Font.BOLD, 60));
         g.setColor(Color.WHITE);
-        g.drawString(Language.paused, (Game.Width*Game.Scale) /2 - 130, (Game.Height*Game.Scale) /2);
+        g.drawString(Game.language.get("paused"), (Game.Width*Game.Scale) /2 - 130, (Game.Height*Game.Scale) /2);
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        g.drawString(Language.pause[0], (Game.Width*Game.Scale) /2 - 100,280);
-        g.drawString(Language.pause[1],(Game.Width*Game.Scale) /2 - 100, 320);
+        g.drawString(Game.language.get("main_menu"), (Game.Width*Game.Scale) /2 - 100,280);
+        g.drawString(Game.language.get("save_progress"),(Game.Width*Game.Scale) /2 - 100, 320);
 
-        if(Language.pause[currOption].equals(Language.pause[0])){
+        if(Language.PAUSE[currOption].equals(Language.PAUSE[0])){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 120,280);
-        }else if(Language.pause[currOption].equals(Language.pause[1])){
+        }else if(Language.PAUSE[currOption].equals(Language.PAUSE[1])){
             g.drawString("*", (Game.Width*Game.Scale) /2 - 120,320);
         }
     }

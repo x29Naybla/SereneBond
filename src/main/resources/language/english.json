@@ -1,0 +1,12 @@
+{
+  "day": "Day %d",
+  "died": "You Died",
+  "respawn": "Press %s to Respawn",
+  "paused": "Paused",
+  "new_world": "New World",
+  "load_world": "Load World",
+  "change_language": "Change Language",
+  "exit": "Exit",
+  "main_menu": "Main Menu",
+  "save_progress": "Save Progress"
+}

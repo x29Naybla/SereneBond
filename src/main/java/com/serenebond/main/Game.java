@@ -1,5 +1,7 @@
 package com.serenebond.main;
 
+import com.google.gson.GsonBuilder;
+import com.serenebond.Resources;
 import com.serenebond.entities.Entity;
 import com.serenebond.entities.Player;
 import com.serenebond.graphics.VFX;
@@ -13,7 +15,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -53,7 +57,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     public Game(){
         frame();
         rand = new Random();
-        language = new Language();
         menu = new Menu();
         pause = new Pause();
         ui = new UI();
@@ -62,6 +65,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         spritesheet = new Spritesheet("/default.png");
         inventory = new Inventory();
         newGame();
+
+        var gson = new GsonBuilder().registerTypeAdapter(Language.class, new Language.Codec()).create();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resources.get("language/english.json")))) {
+            language = gson.fromJson(reader, Language.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void frame(){
@@ -140,10 +151,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
             }
         }else if(gameState.equals("menu")){
             menu.tick();
-            language.tick();
         }
-
-
     }
 
     public static void newGame(){
@@ -177,7 +185,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
             g.setFont(new Font("Arial", Font.BOLD, 8));
             g.setColor(Color.black);
             g.drawString("FPS: " + fps, 4, 10);
-            g.drawString(Language.day + VFX.days, 34, 10);
+            g.drawString(language.getFormatted("day", VFX.days), 34, 10);
             g.drawString("X: "+ (player.coord_x / 16), 4, 26);
             g.drawString("Y: "+ (player.coord_y / 16), 4, 37);
         }
@@ -194,10 +202,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
             g.setFont(new Font("Arial", Font.BOLD, 60));
             g.setColor(Color.WHITE);
-            g.drawString(Language.dead, (Width*Scale) /2 - 130, (Height*Scale) /2);
+            g.drawString(language.get("died"), (Width*Scale) /2 - 130, (Height*Scale) /2);
             g.setFont(new Font("Arial", Font.BOLD, 20));
             g.setColor(Color.WHITE);
-            g.drawString(Language.respawn, (Width*Scale) /2 - 110, (Height*Scale) /2 + 50);
+            g.drawString(language.get("respawn"), (Width*Scale) /2 - 110, (Height*Scale) /2 + 50);
         }else if(gameState.equals("paused")){
             pause.render(g);
         }else if(gameState.equals("menu")){
@@ -309,13 +317,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
                 player.coord_y = 0;
             }
             if(gameState.equals("paused")){
-                if(Language.pause[pause.currOption].equals(Language.pause[0])){
+                if(Language.PAUSE[pause.currOption].equals(Language.PAUSE[0])){
                     gameState = "menu";
-                }else if(Language.pause[pause.currOption].equals(Language.pause[1])){
+                }else if(Language.PAUSE[pause.currOption].equals(Language.PAUSE[1])){
                     Menu.saveGame = true;
                 }
             }
-
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SHIFT && !(player.energy <= 0)){
