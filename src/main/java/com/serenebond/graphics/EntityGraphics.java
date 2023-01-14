@@ -2,8 +2,6 @@ package com.serenebond.graphics;
 
 import com.serenebond.Resources;
 import com.serenebond.entity.Entity;
-import org.joml.Matrix4d;
-import org.joml.Matrix4dStack;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 import org.lwjgl.system.MemoryStack;
@@ -15,12 +13,15 @@ import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.system.MemoryUtil.memCalloc;
 import static org.lwjgl.system.MemoryUtil.memFree;
 
-public final class EntityFx {
+public final class EntityGraphics {
     private final int vao = glCreateVertexArrays();
 
     private final int pipeline = glCreateProgramPipelines();
     private final int fragment;
     private final int vertex;
+
+    private final int projectionLocation;
+    private final int modelViewLocation;
 
     {
         try (MemoryStack memoryStack = MemoryStack.stackPush()) {
@@ -72,11 +73,14 @@ public final class EntityFx {
         var fragment = 0;
         var vertex = 0;
         try {
-            fragment = glCreateShaderProgramv(GL_FRAGMENT_SHADER, Resources.glsl("shader/entity_fragment.glsl"));
-            vertex = glCreateShaderProgramv(GL_VERTEX_SHADER, Resources.glsl("shader/entity_vertex.glsl"));
+            fragment = glCreateShaderProgramv(GL_FRAGMENT_SHADER, Resources.glsl("resources/shader/entity_fragment.glsl"));
+            vertex = glCreateShaderProgramv(GL_VERTEX_SHADER, Resources.glsl("resources/shader/entity_vertex.glsl"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        projectionLocation = glGetUniformLocation(vertex, "projection");
+        modelViewLocation = glGetUniformLocation(vertex, "model_view");
 
         glUseProgramStages(pipeline, GL_FRAGMENT_SHADER_BIT, this.fragment = fragment);
         glUseProgramStages(pipeline, GL_VERTEX_SHADER_BIT, this.vertex = vertex);
@@ -84,16 +88,22 @@ public final class EntityFx {
         glValidateProgramPipeline(pipeline);
     }
 
-    public void draw(List<Entity> list, Matrix4d projection, Matrix4dStack modelView) {
+    public void draw(List<Entity> list, Matrix4f projection, Matrix4fStack modelView) {
         glBindProgramPipeline(pipeline);
 
         // TODO:: Switch to instancing.
         list.forEach(entity -> {
-            try (MemoryStack memoryStack = MemoryStack.stackPush()) {
-                var buffer = memoryStack.callocDouble(16);
+            modelView.pushMatrix();
+            modelView.identity();
 
-                glProgramUniformMatrix4dv(fragment, 0, false, projection.get(buffer));
-                glProgramUniformMatrix4dv(vertex, 0, false, modelView.get(buffer));
+            var position = entity.position;
+            modelView.translate(position.x, position.y, 0.0F);
+
+            try (MemoryStack memoryStack = MemoryStack.stackPush()) {
+                var buffer = memoryStack.callocFloat(16);
+
+                glProgramUniformMatrix4fv(vertex, projectionLocation, false, projection.get(buffer));
+                glProgramUniformMatrix4fv(vertex, modelViewLocation, false, modelView.get(buffer));
             }
 
             glBindVertexArray(vao);
@@ -105,6 +115,8 @@ public final class EntityFx {
             glDisableVertexArrayAttrib(vao, 0);
 
             glBindVertexArray(0);
+
+            modelView.popMatrix();
         });
 
         glBindProgramPipeline(0);

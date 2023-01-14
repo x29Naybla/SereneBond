@@ -68,7 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
         var gson = new GsonBuilder().registerTypeAdapter(Language.class, new Language.Codec()).create();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resources.get("language/english.json")))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Resources.get("resources/language/english.json")))) {
             language = gson.fromJson(reader, Language.class);
         } catch (IOException e) {
             e.printStackTrace();

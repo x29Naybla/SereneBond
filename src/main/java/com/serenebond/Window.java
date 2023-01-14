@@ -5,11 +5,15 @@ import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.system.MemoryUtil.memAddress;
 
 public final class Window {
     private final long window;
+
+    private int width = 1280;
+    private int height = 720;
 
     {
         glfwDefaultWindowHints();
@@ -38,6 +42,12 @@ public final class Window {
             }
         }
 
+        glfwSetWindowSizeCallback(window, (window, width, height) -> {
+            this.width = width;
+            this.height = height;
+            glViewport(0, 0, width, height);
+        });
+
         glfwMakeContextCurrent(window);
 
         GL.createCapabilities();
@@ -50,6 +60,10 @@ public final class Window {
     public void swapBuffers() {
         glfwSwapBuffers(window);
         glfwPollEvents();
+    }
+
+    public float getAspectRatio() {
+        return (float) width / (float) height;
     }
 
     public void destroy() {

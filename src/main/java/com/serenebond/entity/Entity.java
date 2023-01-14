@@ -1,20 +1,18 @@
 package com.serenebond.entity;
 
 import com.serenebond.math.BoundingBox;
-import org.joml.Vector4d;
+import org.joml.Vector4f;
 
 public sealed class Entity permits Player {
-    private final Vector4d position = new Vector4d();
+    public final Vector4f position = new Vector4f(0.0F, 0.0F, 0.0F, 0.0F);
 
     private final BoundingBox boundingBox = new BoundingBox();
 
     public void step() {
-        position.x += (position.z *= 0.1D);
-        position.y += (position.w *= 0.1D);
-    }
+        position.z *= 0.5F;
+        position.w *= 0.5F;
 
-    public void move(double x, double y) {
-        position.z += x;
-        position.y += y;
+        position.x += position.z;
+        position.y += position.w;
     }
 }

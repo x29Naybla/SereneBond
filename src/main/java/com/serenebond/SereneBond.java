@@ -2,26 +2,27 @@ package com.serenebond;
 
 import com.serenebond.entity.Entity;
 import com.serenebond.entity.Player;
-import com.serenebond.graphics.EntityFx;
-import org.joml.Matrix4d;
-import org.joml.Matrix4dStack;
+import com.serenebond.graphics.EntityGraphics;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.lwjgl.opengl.GL11C.*;
+import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11C.glClear;
 
 public final class SereneBond {
     private final Window window = new Window();
 
     private final AtomicBoolean running = new AtomicBoolean(true);
 
-    private final Matrix4d projection = new Matrix4d();
-    private final Matrix4dStack modelView = new Matrix4dStack(2);
+    private final Matrix4f projection = new Matrix4f();
+    private final Matrix4fStack modelView = new Matrix4fStack(2);
 
     // FX
-    private final EntityFx entityFx = new EntityFx();
+    private final EntityGraphics entityGraphics = new EntityGraphics();
 
     private final List<Entity> entities = new ArrayList<>();
 
@@ -34,10 +35,9 @@ public final class SereneBond {
     }
 
     public void step() {
-
-        glClearColor(1.0F, 0.0F, 0.0F, 1.0F);
-
         while (running.getAndSet(!window.shouldClose())) {
+            entities.forEach(Entity::step);
+
             draw();
             window.swapBuffers();
         }
@@ -46,9 +46,15 @@ public final class SereneBond {
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT);
 
+        var aspectRatio = window.getAspectRatio();
+        var fieldOfView = 0.785398F;
+
+        projection.identity();
+        projection.ortho(-fieldOfView * aspectRatio, fieldOfView * aspectRatio, -fieldOfView, fieldOfView, 1.0F, -1.0F);
+
         switch (state) {
             case IN_GAME -> {
-                entityFx.draw(entities, projection, modelView);
+                entityGraphics.draw(entities, projection, modelView);
             }
 
             default -> {
