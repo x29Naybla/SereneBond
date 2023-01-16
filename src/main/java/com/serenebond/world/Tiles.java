@@ -39,7 +39,7 @@ public final class Tiles {
 
     static {
         // Colours are Big Endian.
-        var map = new Int2ObjectOpenHashMap<TileType>();
+        Int2ObjectOpenHashMap<TileType> map = new Int2ObjectOpenHashMap<>();
         map.put(0xFF84BA2C, GRASS);
         map.put(0xFF68422A, DIRT);
         map.put(0xFFF2CF79, SAND);
