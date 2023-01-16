@@ -11,7 +11,7 @@ public class PlayerHairstyle {
     private static final List<BufferedImage[]> hairStyles = new ArrayList<>();
 
     // todo Some sort of global resource loader may make sense here
-    private static final Spritesheet spritesheet = new Spritesheet("/hairStyles.png");
+    private static final Spritesheet spritesheet = new Spritesheet("hairStyles.png");
 
     static {
         for (int y = 0; y < 8; y++) {

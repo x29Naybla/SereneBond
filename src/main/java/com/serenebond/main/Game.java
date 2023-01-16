@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         ui = new UI();
         vfx = new VFX();
         image = new BufferedImage(Width,Height, BufferedImage.TYPE_INT_RGB);
-        spritesheet = new Spritesheet("/default.png");
+        spritesheet = new Spritesheet("default.png");
         inventory = new Inventory();
         newGame();
     }
@@ -150,7 +150,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         entities = new ArrayList<Entity>();
         player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
         entities.add(player);
-        world = new World("/world.png");
+        world = new World("world.png");
     }
 
     public void render() {

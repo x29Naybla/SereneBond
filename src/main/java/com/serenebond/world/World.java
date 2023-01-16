@@ -1,5 +1,6 @@
 package com.serenebond.world;
 
+import com.serenebond.Resources;
 import com.serenebond.main.Game;
 
 import javax.imageio.ImageIO;
@@ -16,7 +17,7 @@ public class World {
 
     public World(String path){
         try {
-            BufferedImage world = ImageIO.read(getClass().getResource(path));
+            BufferedImage world = ImageIO.read(Resources.getResource(path));
             int[] pixels = new int[world.getWidth() * world.getHeight()];
             Width = world.getWidth();
             Height = world.getHeight();

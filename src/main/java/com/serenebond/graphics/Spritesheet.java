@@ -1,5 +1,7 @@
 package com.serenebond.graphics;
 
+import com.serenebond.Resources;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,7 +11,7 @@ public class Spritesheet {
     private BufferedImage spritesheet;
     public Spritesheet(String path){
         try {
-            spritesheet = ImageIO.read(getClass().getResource(path));
+            spritesheet = ImageIO.read(Resources.getResource(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
