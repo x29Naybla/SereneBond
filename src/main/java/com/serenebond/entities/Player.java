@@ -13,7 +13,7 @@ import static com.serenebond.world.World.isFree;
 public class Player extends Entity {
 
     public boolean up, down, left, right;
-    public int up_dir = 0, down_dir = 1, left_dir = 2, right_dir = 3;
+    public int up_dir = 1, down_dir = 0, left_dir = 2, right_dir = 3; //todo enum maybe
     public int dir = down_dir;
     public int speed = 1;
     public boolean isRunning = false;
@@ -32,6 +32,8 @@ public class Player extends Entity {
     private BufferedImage[] leftPlayer;
     private BufferedImage[] rightPlayer;
 
+    private PlayerHairstyle hairStyle = new PlayerHairstyle(9, 0x4f1a00);
+
     public Player(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
 
@@ -48,7 +50,6 @@ public class Player extends Entity {
         }
         for(int i = 0; i < 4; i++){
             leftPlayer[i] = Game.spritesheet.getSprite(64 +(i*16), 176, 16, 16);
-;
         }
         for(int i = 0; i < 4; i++){
             rightPlayer[i] = Game.spritesheet.getSprite(64 +(i*16), 192, 16, 16);
@@ -88,7 +89,7 @@ public class Player extends Entity {
                     index = 0;
                 }
             }
-        }else if(!moved){
+        }else {
             frames = 0;
             index = 0;
         }
@@ -103,6 +104,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g){
+        //todo optimize, you already have the dir as an int and may use a 2D sprite lookup, like in hairStyle
         if(dir == up_dir){
             g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
         }else if(dir == down_dir){
@@ -112,6 +114,11 @@ public class Player extends Entity {
         }else if(dir == right_dir){
             g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
         }
+
+        //todo setColor not working, either implement CPU side tinting or go for full opengl
+        g.setColor(hairStyle.getHairColor());
+        //g.drawImage(hairStyle.getHairStyle(dir), this.getX() - Camera.x, this.getY() - Camera.y, null);
+        g.setColor(Color.WHITE);
     }
 
     public void run(){

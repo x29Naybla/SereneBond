@@ -239,10 +239,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
     }
 
-
     public void keyTyped(KeyEvent e) {
 
     }
+
     public void keyPressed(KeyEvent e) {
 
         if(e.getKeyCode() == KeyEvent.VK_1||
