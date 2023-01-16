@@ -104,6 +104,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         game.addMouseListener(game);
         game.addMouseWheelListener(game);
     }
+    public static void newGame(){
+        entities = new ArrayList<Entity>();
+        player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
+        entities.add(player);
+        world = new World("world.png");
+    }
+
     public void tick() {
         if(gameState.equals("playing")){
             for(int i = 0; i < entities.size(); i++){
@@ -112,11 +119,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
                     //player updates
                     if(player.getX() < 0){
                         player.setX(World.ActW);
-                        player.coord_x = World.ActW - (5*16);
+                        player.coord_x = World.ActW - world.spawnX;
                     }
                     if(player.getX() > World.ActW){
                         player.setX(0);
-                        player.coord_x = (-5*16);
+                        player.coord_x = -world.spawnX;
                     }
                     if(player.isRunning){
                         player.speed = 2;
@@ -144,13 +151,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         }
 
 
-    }
-
-    public static void newGame(){
-        entities = new ArrayList<Entity>();
-        player = new Player(0, 0, 16, 16, spritesheet.getSprite(0, 48, 16, 16));
-        entities.add(player);
-        world = new World("world.png");
     }
 
     public void render() {

@@ -35,11 +35,11 @@ public class World {
                         Game.player.setX(xx*16);
                         Game.player.setY(yy*16);
 
-                        spawnX = xx;
-                        spawnY = yy;
+                        spawnX = xx*16;
+                        spawnY = yy*16;
                     }
 
-                    ActW = (world.getWidth()*16) -17;
+                    ActW = (world.getWidth()*16) -18;
                     ActH = (Height*yy) / 16;
                 }
             }
