@@ -36,7 +36,8 @@ public class TileTypes {
         tiles.put(rgba, tile);
         return tile;
     }
-    public static Map<String, TileType> itemsTileType = new HashMap<String, TileType>();
+
+    public static Map<String, TileType> itemsTileType = new HashMap<>();
     static {
         itemsTileType.put(Item.stone.getID(), Tile_F_Stone);
         itemsTileType.put(Item.sand.getID(), Tile_F_Sand);
@@ -45,6 +46,4 @@ public class TileTypes {
         itemsTileType.put(Item.snow.getID(), Tile_F_Snow);
         itemsTileType.put(Item.water.getID(), Tile_W_Water);
     }
-
-
 }
