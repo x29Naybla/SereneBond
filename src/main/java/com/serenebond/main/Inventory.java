@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static com.serenebond.main.Game.gameState;
 import static com.serenebond.main.Game.player;
-import static com.serenebond.world.TileTypes.itemsTileType;
+import static com.serenebond.world.Tiles.itemsTileType;
 
 public class Inventory {
 

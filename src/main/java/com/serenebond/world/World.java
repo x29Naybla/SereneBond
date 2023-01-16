@@ -28,7 +28,7 @@ public class World {
                     int curPixel = pixels[xx + yy * world.getWidth()];
 
                     //Use our tile type registry to look up the color
-                    tiles[xx][yy] = new Tile(xx, yy, TileTypes.tiles.getOrDefault(curPixel, TileTypes.Tile_F_Grass));
+                    tiles[xx][yy] = new Tile(xx, yy, Tiles.getTile(curPixel));
 
                     if(curPixel == 0xFF000000){
                         //player
