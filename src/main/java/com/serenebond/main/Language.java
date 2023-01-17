@@ -10,7 +10,7 @@ public class Language {
     public static String paused;
 
     public static int currLang = 0;
-    public int maxLang = 3;
+    public int maxLang = 1;
 
     public static String[] options = {"0", "1", "2", "3"};
     public static String[] pause = {"0", "1"};
@@ -35,7 +35,7 @@ public class Language {
         if(currLang == 1){
             //Portuguese selected
             day = "Dia: ";
-            dead = "Você Morreu";
+            dead = "Voc\u00EA Morreu";
             respawn = "Aperte Enter Para Respawnar";
             paused = "Pausado";
 
@@ -47,37 +47,6 @@ public class Language {
             pause[0] = "Menu Principal";
             pause[1] = "Salvar Progresso";
 
-        }
-        if(currLang == 2){
-            //French selected
-            day = "Jour: ";
-            dead = "Tu es Mort";
-            respawn = "Press Enter to Respawn";
-            paused = "En Pause";
-
-            options[0] = "Nouveau Monde";
-            options[1] = "Charger";
-            options[2] = "Changer la Langue";
-            options[3] = "Quitter";
-
-            pause[0] = "Main menu";
-            pause[1] = "Save Progress";
-
-        }
-        if(currLang == 3){
-            //German selected
-            day = "Tag: ";
-            dead = "Du Bist Gestorben";
-            respawn = "Press Enter to Respawn";
-            paused = "Pausiert";
-
-            options[0] = "Neue Welt";
-            options[1] = "Laden";
-            options[2] = "Sprache Ändern";
-            options[3] = "Verlassen";
-
-            pause[0] = "Main Menu";
-            pause[1] = "Save Progress";
         }
 
         String langSaver = loadSettings(29);

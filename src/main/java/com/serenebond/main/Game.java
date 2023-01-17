@@ -303,8 +303,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
                 gameState = "playing";
                 player.life = player.maxLife;
                 player.energy = player.maxEnergy;
-                player.setX(world.spawnX*16);
-                player.setY(world.spawnY*16);
+                player.setX(world.spawnX);
+                player.setY(world.spawnY);
                 player.coord_x = 0;
                 player.coord_y = 0;
             }

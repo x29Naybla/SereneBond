@@ -19,3 +19,9 @@ dependencies {
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
+
+tasks.getByName<Jar>("jar") {
+    manifest {
+        attributes["Main-Class"] = "com.serenebond.main.Game"
+    }
+}
