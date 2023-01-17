@@ -1,9 +1,8 @@
 package com.serenebond.main;
 
-import com.serenebond.tiles.TileType;
-import com.serenebond.tiles.WallTileType;
+import com.serenebond.tile.Tile;
+import com.serenebond.tile.WallTile;
 import com.serenebond.world.Camera;
-import com.serenebond.world.Tile;
 import com.serenebond.world.World;
 
 import java.awt.*;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 import static com.serenebond.main.Game.gameState;
 import static com.serenebond.main.Game.player;
-import static com.serenebond.world.Tiles.itemsTileType;
+import static com.serenebond.tile.Tiles.itemsTileType;
 
 public class Inventory {
 
@@ -58,18 +57,18 @@ public class Inventory {
             if(selected >= items.size()){
                 return;
             }else if (selected < items.size()){
-                TileType tileType = itemsTileType.get(items.get(selected).getID());
-                if(tileType instanceof WallTileType){
+                Tile tileType = itemsTileType.get(items.get(selected).getID());
+                if(tileType instanceof WallTile){
                     if((player.getX()/16 == tilex && player.getY()/16 == tiley) ||
                             (player.getX()/16 == tilex && (player.getY()+16)/16 == tiley) ||
                             ((player.getX()+16)/16 == tilex && player.getY()/16 == tiley) ||
                             ((player.getX()+16)/16 == tilex && (player.getY()+16)/16 == tiley)){
 
                     }else{
-                        World.tiles[tilex][tiley] = new Tile(tilex, tiley, tileType);
+                        World.tiles[tilex][tiley] = tileType;
                     }
                 }else{
-                    World.tiles[tilex][tiley] = new Tile(tilex, tiley, tileType);
+                    World.tiles[tilex][tiley] = tileType;
                 }
             }
         }

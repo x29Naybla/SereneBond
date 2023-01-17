@@ -1,13 +1,13 @@
-package com.serenebond.tiles;
+package com.serenebond.tile;
 
 import com.serenebond.main.Game;
 
 import java.awt.image.BufferedImage;
 
-public class BlendingTileType extends GroundTileType {
+public final class BlendingTile extends FloorTile {
     public final BufferedImage[][] images = new BufferedImage[3][3];
 
-    public BlendingTileType(int u, int v, int blendU, int blendV, int order) {
+    public BlendingTile(int u, int v, int blendU, int blendV, int order) {
         super(u, v);
 
         this.order = order;

@@ -11,10 +11,10 @@ import static com.serenebond.main.Game.gameState;
 import static com.serenebond.world.World.isFree;
 
 public class Player extends Entity {
+    private static final int UP = 1, DOWN = 0, LEFT = 2, RIGHT = 3;
 
     public boolean up, down, left, right;
-    public int up_dir = 1, down_dir = 0, left_dir = 2, right_dir = 3; //todo enum maybe
-    public int dir = down_dir;
+    public int dir = DOWN;
     public int speed = 1;
     public boolean isRunning = false;
 
@@ -61,23 +61,23 @@ public class Player extends Entity {
         if(up && isFree(x,y-speed)){
             moved =  true;
             y-=speed;
-            dir = up_dir;
+            dir = UP;
             coord_y = coord_y - speed;
         }else if(down && isFree(x,y+speed)){
             moved =  true;
             y+=speed;
-            dir = down_dir;
+            dir = DOWN;
             coord_y = coord_y + speed;
         }
         if(left && isFree(x-speed,y)){
             moved =  true;
             x-=speed;
-            dir = left_dir;
+            dir = LEFT;
             coord_x = coord_x - speed;
         }else if(right && isFree(x+speed,y)){
             moved =  true;
             x+=speed;
-            dir = right_dir;
+            dir = RIGHT;
             coord_x = coord_x + speed;
         }
         if(moved){
@@ -103,22 +103,18 @@ public class Player extends Entity {
         Camera.y = Camera.clamp(this.getY() - (Game.Height/2), 0, World.Height*16 - Game.Height);
     }
 
-    public void render(Graphics g){
-        //todo optimize, you already have the dir as an int and may use a 2D sprite lookup, like in hairStyle
-        if(dir == up_dir){
-            g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-        }else if(dir == down_dir){
-            g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-        }else if(dir == left_dir){
-            g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-        }else if(dir == right_dir){
-            g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+    public void render(Graphics graphics){
+        switch (dir) {
+            case UP -> graphics.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+            case DOWN -> graphics.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+            case LEFT -> graphics.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+            case RIGHT -> graphics.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
         }
 
         //todo setColor not working, either implement CPU side tinting or go for full opengl
-        g.setColor(hairStyle.getHairColor());
+        graphics.setColor(hairStyle.getHairColor());
         //g.drawImage(hairStyle.getHairStyle(dir), this.getX() - Camera.x, this.getY() - Camera.y, null);
-        g.setColor(Color.WHITE);
+        graphics.setColor(Color.WHITE);
     }
 
     public void run(){

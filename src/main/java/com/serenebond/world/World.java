@@ -2,6 +2,8 @@ package com.serenebond.world;
 
 import com.serenebond.Resources;
 import com.serenebond.main.Game;
+import com.serenebond.tile.Tile;
+import com.serenebond.tile.Tiles;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,7 +30,7 @@ public class World {
                     int curPixel = pixels[xx + yy * world.getWidth()];
 
                     //Use our tile type registry to look up the color
-                    tiles[xx][yy] = new Tile(xx, yy, Tiles.getTile(curPixel));
+                    tiles[xx][yy] = Tiles.getTile(curPixel);
 
                     if(curPixel == 0xFF000000){
                         //player
@@ -64,10 +66,10 @@ public class World {
         int x4 = (xnext+15) / 16;
         int y4 = (ynext+15) / 16;
 
-        return !(tiles[x1][y1].type.hasCollision() == true ||
-                tiles[x2][y2].type.hasCollision() == true ||
-                tiles[x3][y3].type.hasCollision() == true ||
-                tiles[x4][y4].type.hasCollision() == true);
+        return !(tiles[x1][y1].collides() ||
+                tiles[x2][y2].collides() ||
+                tiles[x3][y3].collides() ||
+                tiles[x4][y4].collides());
     }
 
     public void render(Graphics g){
@@ -82,7 +84,7 @@ public class World {
                 if(xx < 0 || yy < 0 || xx >= Width || yy >= Height)
                     continue;
                 Tile tile = tiles[xx][yy];
-                tile.render(g, this);
+                tile.draw(g, xx, yy, this);
             }
         }
     }
