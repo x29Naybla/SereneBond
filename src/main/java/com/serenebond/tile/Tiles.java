@@ -11,23 +11,23 @@ import java.util.Map;
 public final class Tiles {
     private static final Int2ObjectMap<Tile> COLOUR_TO_TILE;
 
-    public static final Tile GRASS = new BlendingTile(0, 48, 64, 0, 3);
-    public static final Tile DIRT = new BlendingTile(0, 0, 64, 48, 1);
-    public static final Tile SAND = new BlendingTile(16, 192, 112, 0, 2);
-    public static final Tile STONE = new BlendingTile(16, 176, 64, 96, 0);
-    public static final Tile SNOW = new BlendingTile(0, 16, 112, 48,4);
-    public static final Tile COBBLESTONE = new BlendingTile(37, 144, 112, 96, 0);
+    public static final Tile GRASS = new FloorTile(0, 48, 64, 0, 3);
+    public static final Tile DIRT = new FloorTile(0, 0, 64, 48, 1);
+    public static final Tile SAND = new FloorTile(16, 192, 112, 0, 2);
+    public static final Tile STONE = new FloorTile(16, 176, 64, 96, 0);
+    public static final Tile SNOW = new FloorTile(0, 16, 112, 48,4);
+    public static final Tile COBBLESTONE = new FloorTile(37, 144, 112, 96, 0);
 
     // Foliage.
-    public static final Tile PLANT = new BlendingTile(0, 32, 64, 0, 3);
-    public static final Tile RED_FLOWER = new BlendingTile(0, 64, 64, 0, 3);
-    public static final Tile ORANGE_FLOWER = new BlendingTile(0, 80, 64, 0, 3);
-    public static final Tile YELLOW_FLOWER = new BlendingTile(0, 96, 64, 0, 3);
-    public static final Tile LIGHT_BLUE_FLOWER = new BlendingTile(0, 112, 64, 0, 3);
-    public static final Tile DARK_BLUE_FLOWER = new BlendingTile(0, 128, 64, 0, 3);
-    public static final Tile PURPLE_FLOWER = new BlendingTile(0, 144, 64, 0, 3);
-    public static final Tile PINK_FLOWER = new BlendingTile(0, 160, 64, 0, 3);
-    public static final Tile WHITE_FLOWER = new BlendingTile(0, 176, 64, 0, 3);
+    public static final Tile PLANT = new FloorTile(0, 32, 64, 0, 3);
+    public static final Tile RED_FLOWER = new FloorTile(0, 64, 64, 0, 3);
+    public static final Tile ORANGE_FLOWER = new FloorTile(0, 80, 64, 0, 3);
+    public static final Tile YELLOW_FLOWER = new FloorTile(0, 96, 64, 0, 3);
+    public static final Tile LIGHT_BLUE_FLOWER = new FloorTile(0, 112, 64, 0, 3);
+    public static final Tile DARK_BLUE_FLOWER = new FloorTile(0, 128, 64, 0, 3);
+    public static final Tile PURPLE_FLOWER = new FloorTile(0, 144, 64, 0, 3);
+    public static final Tile PINK_FLOWER = new FloorTile(0, 160, 64, 0, 3);
+    public static final Tile WHITE_FLOWER = new FloorTile(0, 176, 64, 0, 3);
 
     // Can't walk on.
     public static final Tile MAGMA = new WallTile(32, 176);
