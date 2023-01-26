@@ -16,10 +16,10 @@ public class Inventory {
 
     public int selected = 0;
     public int mx,my;
-    public boolean mouseL = false, mouseR = false;
+    public boolean mouseL = false, mouseR = false, invOpened = false;
     private ArrayList<Item> items;
     private int initPos = (((Game.Width*Game.Scale) / 2) - (10 *36) / 2);
-
+    private int slots = 10, rows = 5;
     public Inventory(){
         items = new ArrayList<>();
         items.add(Item.stone);
@@ -39,7 +39,7 @@ public class Inventory {
 
         if(mouseL){
             mouseL = false;
-            if(mx >= initPos && mx < initPos + (36 * 10)){
+            if(mx >= initPos && mx < initPos + (36 * slots)){
                 if(my >= Game.Height*Game.Scale - 37 && my < Game.Height*Game.Scale - 1){
                     selected = (int)((mx-initPos)/36);
                     System.out.println(selected);
@@ -86,7 +86,7 @@ public class Inventory {
         }
     }
     public void render(Graphics g){
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < slots; i++){
             g.setColor(new Color(50,50,50,123));
             g.fillRect(initPos + (i*36) + 1, Game.Height*Game.Scale - 37, 36, 36);
             g.setColor(Color.black);
@@ -97,6 +97,17 @@ public class Inventory {
             if(selected == i){
                 g.setColor(Color.WHITE);
                 g.drawRect(initPos + (i*36) + 1, Game.Height*Game.Scale - 37, 35, 36);
+            }
+        }
+
+        if (invOpened){
+            for(int x = 0; x < slots; x++){
+                for(int y = 0; y < rows; y++){
+                    g.setColor(new Color(50,50,50,123));
+                    g.fillRect(initPos + (x*36) + 1, (Game.Height*Game.Scale - 300) + (y*37), 36, 36);
+                    g.setColor(Color.black);
+                    g.drawRect(initPos + (x*36) + 1, (Game.Height*Game.Scale - 300) + (y*37), 36, 36);
+                }
             }
         }
     }

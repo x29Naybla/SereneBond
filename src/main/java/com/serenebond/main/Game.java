@@ -322,6 +322,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
             player.isRunning = true;
         }
 
+        if(e.getKeyCode() == KeyEvent.VK_I && gameState.equals("playing")){
+            if(!inventory.invOpened){
+                inventory.invOpened = true;
+            }else if(inventory.invOpened){
+                inventory.invOpened = false;
+            }
+
+        }
+
         if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP){
             player.up = true;
             if(gameState.equals("menu")){
